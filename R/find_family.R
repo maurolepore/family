@@ -72,7 +72,9 @@ find_children <- function(parent = ".", family = "^[.]child$") {
 #' @rdname find_family
 find_siblings <- function(parent = "..", family = "^[.]child$", self = FALSE) {
   children <- find_family(parent, family)
-  if (self) return(children)
+  if (self) {
+    return(children)
+  }
 
   self <- getwd()
   grep(self, children, value = TRUE, invert = TRUE)
