@@ -6,6 +6,10 @@ test_that("with `parent` not character errors gracefully", {
   expect_error(find_family(parent = TRUE), "character.*not")
 })
 
+test_that("with `parent` of lengh > 1 errors gracefully", {
+  expect_error(find_family(c(".", ".")), "length.*not")
+})
+
 test_that("with parent path finds siblings", {
   # family silings
   parent <- withr::local_tempdir()
