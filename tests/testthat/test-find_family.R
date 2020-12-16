@@ -64,3 +64,12 @@ test_that("find_siblings() from child finds siblings", {
   withr::local_dir(path(parent, "a"))
   expect_equal(path_file(find_siblings()), "b")
 })
+
+test_that("find_siblings() is sensitive to self", {
+  parent <- withr::local_tempdir()
+  create_file_in_child(parent, child = "a")
+  create_file_in_child(parent, child = "b")
+
+  withr::local_dir(path(parent, "a"))
+  expect_equal(path_file(find_siblings(self = TRUE)), c("a", "b"))
+})
