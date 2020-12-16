@@ -50,12 +50,17 @@
 #'
 #' setwd(wd)
 find_family <- function(parent, family = "^[.]child$") {
-  stopifnot(length(parent) == 1)
-  stopifnot(is.character(parent))
-  stopifnot(is.character(family))
-
+  check_find_family(parent, family)
   paths <- list_all_files(parent)
   pick_children(paths, family)
+}
+
+check_find_family <- function(parent, family) {
+  stopifnot(
+    length(parent) == 1,
+    is.character(parent),
+    is.character(family)
+  )
 }
 
 #' @export

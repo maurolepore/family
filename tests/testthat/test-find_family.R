@@ -1,7 +1,3 @@
-test_that("with `parent` of lengh > 1 errors gracefully", {
-  expect_error(find_family(".", family = TRUE), "character.*not")
-})
-
 test_that("with `parent` not character errors gracefully", {
   expect_error(find_family(parent = TRUE), "character.*not")
 })
@@ -10,11 +6,9 @@ test_that("with `parent` of lengh > 1 errors gracefully", {
   expect_error(find_family(c(".", ".")), "length.*not")
 })
 
-test_that("find_siblings() with `self` not logical errors gracefully", {
-  expect_error(find_siblings(".", self = "bad"), "logical.*not")
+test_that("with `family` of lengh > 1 errors gracefully", {
+  expect_error(find_family(".", family = TRUE), "character.*not")
 })
-
-
 
 test_that("with parent path finds siblings", {
   # family silings
@@ -55,24 +49,11 @@ test_that("with relative path finds siblings", {
   expect_equal(out_file, expected_file)
 })
 
-test_that("find_children() from parent finds children", {
-  parent <- withr::local_tempdir()
-  create_file_in_child(parent, child = "a")
-  create_file_in_child(parent, child = "b")
-
-  withr::local_dir(parent)
-  children <- find_children()
-  expect_equal(path_file(children), c("a", "b"))
+test_that("find_siblings() with `self` not logical errors gracefully", {
+  expect_error(find_siblings(".", self = "bad"), "logical.*not")
 })
 
-test_that("find_parent() from child finds parent", {
-  parent <- withr::local_tempdir()
-  create_file_in_child(parent, child = "a")
-  create_file_in_child(parent, child = "b")
 
-  withr::local_dir(path(parent, "a"))
-  expect_equal(path_file(find_parent()), path_file(parent))
-})
 
 test_that("find_siblings() from child finds siblings", {
   parent <- withr::local_tempdir()
@@ -91,3 +72,27 @@ test_that("find_siblings() is sensitive to self", {
   withr::local_dir(path(parent, "a"))
   expect_equal(path_file(find_siblings(self = TRUE)), c("a", "b"))
 })
+
+
+
+test_that("find_children() from parent finds children", {
+  parent <- withr::local_tempdir()
+  create_file_in_child(parent, child = "a")
+  create_file_in_child(parent, child = "b")
+
+  withr::local_dir(parent)
+  children <- find_children()
+  expect_equal(path_file(children), c("a", "b"))
+})
+
+
+
+test_that("find_parent() from child finds parent", {
+  parent <- withr::local_tempdir()
+  create_file_in_child(parent, child = "a")
+  create_file_in_child(parent, child = "b")
+
+  withr::local_dir(path(parent, "a"))
+  expect_equal(path_file(find_parent()), path_file(parent))
+})
+
