@@ -9,7 +9,7 @@
 \usage{
 find_family(parent, family = "^[.]child$")
 
-find_parent(family = "^[.]child$")
+find_parent(parent = "..", family = "^[.]child$")
 
 find_children(parent = ".", family = "^[.]child$")
 
