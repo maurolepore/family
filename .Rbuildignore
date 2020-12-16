@@ -1,0 +1,8 @@
+^LICENSE\.md$
+^family\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^\.Rhistory$
+^\.github$
+^codecov\.yml$
+^README_cache$

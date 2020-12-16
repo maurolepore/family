@@ -1,0 +1,85 @@
+#' Find directories of a family
+#'
+#' @param parent Path to the parent of the siblings.
+#' @param family A regexp to match a file that defines the family.
+#'
+#'
+#' @return A character vector.
+#' @export
+#'
+#' @examples
+#' library(fs)
+#' library(withr)
+#' library(family)
+#'
+#' wd <- getwd()
+#' on.exit(setwd(wd))
+#'
+#' parent <- path(tempdir(), "parent")
+#'
+#' child_a <- dir_create(path(parent, "child_a"))
+#' child_b <- dir_create(path(parent, "child_b"))
+#'
+#' # Add a file ".child" in the root each sibling under a parent directory
+#' file_create(path(child_a, ".child"))
+#' file_create(path(child_b, ".child"))
+#'
+#' # Other directories will be ignored
+#' neighbour <- dir_create(path(parent, "other"))
+#'
+#' dir_tree(parent)
+#'
+#' # From anywhere
+#' find_family(parent, family = "^[.]child$")
+#'
+#' # From the parent (using default `family = "^[.]child$")
+#' setwd(parent)
+#' find_children()
+#'
+#' # From any child
+#' setwd(child_a)
+#' find_siblings()
+#'
+#' setwd(child_b)
+#' find_siblings()
+#' find_parent()
+#'
+#' setwd(wd)
+find_family <- function(parent, family = "^[.]child$") {
+  paths <- list_all_files(parent)
+  pick_children(paths, family)
+}
+
+#' @export
+#' @rdname find_family
+find_parent <- function(parent = "..", family = "^[.]child$") {
+  children <- find_family(parent, family)
+  unique(path_dir(children))
+}
+
+#' @export
+#' @rdname find_family
+find_children <- function(parent = ".", family = "^[.]child$") {
+  find_family(parent, family)
+}
+
+#' @export
+#' @rdname find_family
+find_siblings <- function(parent = "..", family = "^[.]child$") {
+  self <- getwd()
+  children <- find_family(parent, family)
+  grep(self, children, value = TRUE, invert = TRUE)
+}
+
+list_all_files <- function(parent) {
+  fs::dir_ls(fs::path_abs(parent), recurse = 1, all = TRUE)
+}
+
+detect_file <- function(paths, file) {
+  grepl(file, path_file(paths))
+}
+
+pick_children <- function(paths, family) {
+  file_path <- paths[detect_file(paths, family)]
+  sort(path_dir(file_path))
+}

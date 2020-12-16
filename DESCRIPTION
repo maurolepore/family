@@ -1,0 +1,29 @@
+Package: family
+Title: A Simper Way to Find Related Directories
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Mauro",
+           family = "Lepore",
+           role = c("aut", "ctr", "cre"),
+           email = "maurolepore@gmail.com",
+           comment = c(ORCID = "0000-0002-1986-7988"))
+Description: Find a family of related directories without
+    knowing their name.  Find children directories under a parent
+    directory, the siblings of any one child, and the parent of all
+    children.  Inspired by the work by Jim Hester (<
+    https://CRAN.R-project.org/package=here>).  directories.
+License: MIT + file LICENSE
+URL: https://github.com/maurolepore/family
+BugReports: 
+    https://github.com/maurolepore/family/issues
+Imports: 
+    fs,
+    withr
+Suggests: 
+    covr,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
