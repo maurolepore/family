@@ -4,7 +4,8 @@
 #'   of the siblings.
 #' @param family A Character vector of lengh 1, giving a regexp to match a file
 #'   that defines the family.
-#' @param self `FALSE` excludes the working directory in the output?
+#' @param self A logical vector of length 1 to include (`TRUE`) or exclude
+#'   (`FALSE`) to the working directory in the output.
 #'
 #' @return A character vector.
 #' @export
@@ -52,6 +53,7 @@ find_family <- function(parent, family = "^[.]child$") {
   stopifnot(length(parent) == 1)
   stopifnot(is.character(parent))
   stopifnot(is.character(family))
+
   paths <- list_all_files(parent)
   pick_children(paths, family)
 }
@@ -72,6 +74,8 @@ find_children <- function(parent = ".", family = "^[.]child$") {
 #' @export
 #' @rdname find_family
 find_siblings <- function(parent = "..", family = "^[.]child$", self = FALSE) {
+  stopifnot(is.logical(self))
+
   children <- find_family(parent, family)
   if (self) {
     return(children)

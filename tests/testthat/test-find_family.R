@@ -10,6 +10,12 @@ test_that("with `parent` of lengh > 1 errors gracefully", {
   expect_error(find_family(c(".", ".")), "length.*not")
 })
 
+test_that("find_siblings() with `self` not logical errors gracefully", {
+  expect_error(find_siblings(".", self = "bad"), "logical.*not")
+})
+
+
+
 test_that("with parent path finds siblings", {
   # family silings
   parent <- withr::local_tempdir()

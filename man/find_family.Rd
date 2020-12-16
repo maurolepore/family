@@ -22,7 +22,8 @@ of the siblings.}
 \item{family}{A Character vector of lengh 1, giving a regexp to match a file
 that defines the family.}
 
-\item{self}{\code{FALSE} excludes the working directory in the output?}
+\item{self}{A logical vector of length 1 to include (\code{TRUE}) or exclude
+(\code{FALSE}) to the working directory in the output.}
 }
 \value{
 A character vector.
