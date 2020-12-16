@@ -1,8 +1,9 @@
 #' Find directories of a family
 #'
-#' @param parent Path to the parent of the siblings.
+#' @param parent Character vector of length 1, giving the path to the parent of
+#'   the siblings.
 #' @param family A regexp to match a file that defines the family.
-#'
+#' @param self `FALSE` excludes the working directory in the output?
 #'
 #' @return A character vector.
 #' @export
@@ -46,6 +47,10 @@
 #'
 #' setwd(wd)
 find_family <- function(parent, family = "^[.]child$") {
+  if (!identical(length(parent), 1L)) {
+    stop("`parent` must be have length 1", call. = FALSE)
+  }
+
   paths <- list_all_files(parent)
   pick_children(paths, family)
 }

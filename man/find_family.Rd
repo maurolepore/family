@@ -13,12 +13,15 @@ find_parent(parent = "..", family = "^[.]child$")
 
 find_children(parent = ".", family = "^[.]child$")
 
-find_siblings(parent = "..", family = "^[.]child$")
+find_siblings(parent = "..", family = "^[.]child$", self = FALSE)
 }
 \arguments{
-\item{parent}{Path to the parent of the siblings.}
+\item{parent}{Character vector of length 1, giving the path to the parent of
+the siblings.}
 
 \item{family}{A regexp to match a file that defines the family.}
+
+\item{self}{\code{FALSE} excludes the working directory in the output?}
 }
 \value{
 A character vector.

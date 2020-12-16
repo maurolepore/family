@@ -1,3 +1,7 @@
+test_that("with too-long `parent` errors gracefully", {
+  expect_error(find_family(c("a", "b")), "must.*length 1")
+})
+
 test_that("with parent path finds siblings", {
   # family silings
   parent <- withr::local_tempdir()
