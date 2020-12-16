@@ -1,4 +1,4 @@
-test_that("with too-long `parent` errors gracefully", {
+test_that("with `parent` of lengh > 1 errors gracefully", {
   expect_error(find_family(c("a", "b")), "must.*length 1")
 })
 
