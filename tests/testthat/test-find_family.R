@@ -95,4 +95,3 @@ test_that("find_parent() from child finds parent", {
   withr::local_dir(path(parent, "a"))
   expect_equal(path_file(find_parent()), path_file(parent))
 })
-
