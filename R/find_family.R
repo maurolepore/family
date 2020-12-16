@@ -52,22 +52,22 @@ find_family <- function(parent, family = "^[.]child$") {
 
 #' @export
 #' @rdname find_family
-find_parent <- function(parent = "..", family = "^[.]child$") {
-  children <- find_family(parent, family)
+find_parent <- function(family = "^[.]child$") {
+  children <- find_family(parent = "..", family)
   unique(path_dir(children))
 }
 
 #' @export
 #' @rdname find_family
-find_children <- function(parent = ".", family = "^[.]child$") {
-  find_family(parent, family)
+find_children <- function(family = "^[.]child$") {
+  find_family(parent = ".", family)
 }
 
 #' @export
 #' @rdname find_family
-find_siblings <- function(parent = "..", family = "^[.]child$") {
+find_siblings <- function(family = "^[.]child$") {
   self <- getwd()
-  children <- find_family(parent, family)
+  children <- find_family(parent = "..", family)
   grep(self, children, value = TRUE, invert = TRUE)
 }
 
