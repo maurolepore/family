@@ -163,27 +163,27 @@
 <span class='va'>neighbour</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://fs.r-lib.org/reference/create.html'>dir_create</a></span><span class='op'>(</span><span class='fu'><a href='http://fs.r-lib.org/reference/path.html'>path</a></span><span class='op'>(</span><span class='va'>parent</span>, <span class='st'>"other"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'><a href='http://fs.r-lib.org/reference/dir_tree.html'>dir_tree</a></span><span class='op'>(</span><span class='va'>parent</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #0000BB;font-weight: bold;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpASg7MZ/parent</span><span>
+</div><div class='output co'>#&gt; <span style='color: #0000BB;font-weight: bold;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpnOLzno/parent</span><span>
 #&gt; ├── </span><span style='color: #0000BB;font-weight: bold;'>child_a</span><span>
 #&gt; ├── </span><span style='color: #0000BB;font-weight: bold;'>child_b</span><span>
 #&gt; └── </span><span style='color: #0000BB;font-weight: bold;'>other</span><span></div><div class='input'>
 <span class='co'># From anywhere</span>
 <span class='fu'>find_family</span><span class='op'>(</span><span class='va'>parent</span>, family <span class='op'>=</span> <span class='st'>"^[.]child$"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpASg7MZ/parent/child_a"
-#&gt; [2] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpASg7MZ/parent/child_b"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpnOLzno/parent/child_a"
+#&gt; [2] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpnOLzno/parent/child_b"</div><div class='input'>
 <span class='co'># From the parent (using default `family = "^[.]child$")</span>
 <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='va'>parent</span><span class='op'>)</span>
 <span class='fu'>find_children</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpASg7MZ/parent/child_a"
-#&gt; [2] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpASg7MZ/parent/child_b"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpnOLzno/parent/child_a"
+#&gt; [2] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpnOLzno/parent/child_b"</div><div class='input'>
 <span class='co'># From any child</span>
 <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='va'>child_a</span><span class='op'>)</span>
 <span class='fu'>find_siblings</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpASg7MZ/parent/child_b"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpnOLzno/parent/child_b"</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='va'>child_b</span><span class='op'>)</span>
 <span class='fu'>find_siblings</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpASg7MZ/parent/child_a"</div><div class='input'><span class='fu'>find_parent</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpASg7MZ/parent"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpnOLzno/parent/child_a"</div><div class='input'><span class='fu'>find_parent</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpnOLzno/parent"</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='va'>wd</span><span class='op'>)</span>
 </div></span></pre>
   </div>
