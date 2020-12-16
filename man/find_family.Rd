@@ -19,7 +19,7 @@ find_siblings(parent = "..", family = "^[.]child$", self = FALSE)
 \item{parent}{A character vector of length 1, giving the path to the parent
 of the siblings.}
 
-\item{family}{A Character vector of lengh 1, giving a regexp to match a file
+\item{family}{A Character vector of length 1, giving a regexp to match a file
 that defines the family.}
 
 \item{self}{A logical vector of length 1 to include (\code{TRUE}) or exclude
