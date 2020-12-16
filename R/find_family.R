@@ -40,6 +40,7 @@
 #' # From any child
 #' setwd(child_a)
 #' find_siblings()
+#' find_siblings(self = TRUE)
 #'
 #' setwd(child_b)
 #' find_siblings()

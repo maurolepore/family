@@ -49,30 +49,32 @@ file_create(path(child_b, ".child"))
 neighbour <- dir_create(path(parent, "other"))
 
 dir_tree(parent)
-#> /tmp/RtmpOVMxXC/parent
+#> /tmp/Rtmpstb3Iy/parent
 #> ├── child_a
 #> ├── child_b
 #> └── other
 
 # From anywhere
 find_family(parent, family = "^[.]child$")
-#> [1] "/tmp/RtmpOVMxXC/parent/child_a" "/tmp/RtmpOVMxXC/parent/child_b"
+#> [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"
 
 # From the parent (using default `family = "^[.]child$")
 setwd(parent)
 find_children()
-#> [1] "/tmp/RtmpOVMxXC/parent/child_a" "/tmp/RtmpOVMxXC/parent/child_b"
+#> [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"
 
 # From any child
 setwd(child_a)
 find_siblings()
-#> [1] "/tmp/RtmpOVMxXC/parent/child_b"
+#> [1] "/tmp/Rtmpstb3Iy/parent/child_b"
+find_siblings(self = TRUE)
+#> [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"
 
 setwd(child_b)
 find_siblings()
-#> [1] "/tmp/RtmpOVMxXC/parent/child_a"
+#> [1] "/tmp/Rtmpstb3Iy/parent/child_a"
 find_parent()
-#> [1] "/tmp/RtmpOVMxXC/parent"
+#> [1] "/tmp/Rtmpstb3Iy/parent"
 
 setwd(wd)
 ```
