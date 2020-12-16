@@ -1,4 +1,8 @@
 test_that("with `parent` of lengh > 1 errors gracefully", {
+  expect_error(find_family(".", family = TRUE), "character.*not")
+})
+
+test_that("with `parent` of lengh > 1 errors gracefully", {
   expect_error(find_family(c("a", "b")), "must.*length 1")
 })
 
