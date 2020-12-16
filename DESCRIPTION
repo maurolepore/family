@@ -14,8 +14,7 @@ Description: Find a family of related directories without
     https://CRAN.R-project.org/package=here>).  directories.
 License: MIT + file LICENSE
 URL: https://github.com/maurolepore/family
-BugReports: 
-    https://github.com/maurolepore/family/issues
+BugReports: https://github.com/maurolepore/family/issues
 Imports: 
     fs,
     withr
