@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/maurolepore/family/branch/master/graph/badge.svg)](https://codecov.io/gh/maurolepore/family?branch=master)
 <!-- badges: end -->
 
-The goal of the this package is to make it easy to reference a family of related directories, with one or more children directories under the same parent directory. Inspired by the package [here](https://github.com/r-lib/here), it is a simpe way to find directories.
+The goal of the this package is to make it easy to reference a family of related directories, with one or more children directories under the same parent directory. Inspired by the package [here](https://github.com/r-lib/here), it is a simple way to find directories.
 
 ## Installation
 

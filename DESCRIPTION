@@ -1,5 +1,5 @@
 Package: family
-Title: A Simper Way to Find Related Directories
+Title: A Simpler Way to Find Related Directories
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Mauro",

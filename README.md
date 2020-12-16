@@ -13,7 +13,7 @@ coverage](https://codecov.io/gh/maurolepore/family/branch/master/graph/badge.svg
 The goal of the this package is to make it easy to reference a family of
 related directories, with one or more children directories under the
 same parent directory. Inspired by the package
-[here](https://github.com/r-lib/here), it is a simpe way to find
+[here](https://github.com/r-lib/here), it is a simple way to find
 directories.
 
 ## Installation
@@ -49,30 +49,30 @@ file_create(path(child_b, ".child"))
 neighbour <- dir_create(path(parent, "other"))
 
 dir_tree(parent)
-#> /tmp/RtmphBCfHL/parent
+#> /tmp/RtmpOVMxXC/parent
 #> ├── child_a
 #> ├── child_b
 #> └── other
 
 # From anywhere
 find_family(parent, family = "^[.]child$")
-#> [1] "/tmp/RtmphBCfHL/parent/child_a" "/tmp/RtmphBCfHL/parent/child_b"
+#> [1] "/tmp/RtmpOVMxXC/parent/child_a" "/tmp/RtmpOVMxXC/parent/child_b"
 
 # From the parent (using default `family = "^[.]child$")
 setwd(parent)
 find_children()
-#> [1] "/tmp/RtmphBCfHL/parent/child_a" "/tmp/RtmphBCfHL/parent/child_b"
+#> [1] "/tmp/RtmpOVMxXC/parent/child_a" "/tmp/RtmpOVMxXC/parent/child_b"
 
 # From any child
 setwd(child_a)
 find_siblings()
-#> [1] "/tmp/RtmphBCfHL/parent/child_b"
+#> [1] "/tmp/RtmpOVMxXC/parent/child_b"
 
 setwd(child_b)
 find_siblings()
-#> [1] "/tmp/RtmphBCfHL/parent/child_a"
+#> [1] "/tmp/RtmpOVMxXC/parent/child_a"
 find_parent()
-#> [1] "/tmp/RtmphBCfHL/parent"
+#> [1] "/tmp/RtmpOVMxXC/parent"
 
 setwd(wd)
 ```
