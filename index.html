@@ -108,30 +108,32 @@
 <span class="va">neighbour</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://fs.r-lib.org/reference/create.html">dir_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">parent</span>, <span class="st">"other"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span><span class="op">(</span><span class="va">parent</span><span class="op">)</span>
-<span class="co">#&gt; /tmp/RtmpOVMxXC/parent</span>
+<span class="co">#&gt; /tmp/Rtmpstb3Iy/parent</span>
 <span class="co">#&gt; ├── child_a</span>
 <span class="co">#&gt; ├── child_b</span>
 <span class="co">#&gt; └── other</span>
 
 <span class="co"># From anywhere</span>
 <span class="fu"><a href="reference/find_family.html">find_family</a></span><span class="op">(</span><span class="va">parent</span>, family <span class="op">=</span> <span class="st">"^[.]child$"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpOVMxXC/parent/child_a" "/tmp/RtmpOVMxXC/parent/child_b"</span>
+<span class="co">#&gt; [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"</span>
 
 <span class="co"># From the parent (using default `family = "^[.]child$")</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">parent</span><span class="op">)</span>
 <span class="fu"><a href="reference/find_family.html">find_children</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpOVMxXC/parent/child_a" "/tmp/RtmpOVMxXC/parent/child_b"</span>
+<span class="co">#&gt; [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"</span>
 
 <span class="co"># From any child</span>
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">child_a</span><span class="op">)</span>
 <span class="fu"><a href="reference/find_family.html">find_siblings</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpOVMxXC/parent/child_b"</span>
+<span class="co">#&gt; [1] "/tmp/Rtmpstb3Iy/parent/child_b"</span>
+<span class="fu"><a href="reference/find_family.html">find_siblings</a></span><span class="op">(</span>self <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">child_b</span><span class="op">)</span>
 <span class="fu"><a href="reference/find_family.html">find_siblings</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpOVMxXC/parent/child_a"</span>
+<span class="co">#&gt; [1] "/tmp/Rtmpstb3Iy/parent/child_a"</span>
 <span class="fu"><a href="reference/find_family.html">find_parent</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpOVMxXC/parent"</span>
+<span class="co">#&gt; [1] "/tmp/Rtmpstb3Iy/parent"</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">wd</span><span class="op">)</span></code></pre></div>
 </div>
