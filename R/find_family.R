@@ -1,8 +1,9 @@
 #' Find directories of a family
 #'
-#' @param parent Character vector of length 1, giving the path to the parent of
-#'   the siblings.
-#' @param family A regexp to match a file that defines the family.
+#' @param parent A character vector of length 1, giving the path to the parent
+#'   of the siblings.
+#' @param family A Character vector of lengh 1, giving a regexp to match a file
+#'   that defines the family.
 #' @param self `FALSE` excludes the working directory in the output?
 #'
 #' @return A character vector.
