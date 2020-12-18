@@ -118,6 +118,3 @@ test_that("siblings() with family defined in options(), finds parent", {
   withr::local_options(list(family = ".smith"))
   expect_equal(path_file(siblings()), "b")
 })
-test_that("set_family", {
-  skip("TODO")
-})
