@@ -94,6 +94,7 @@ find_siblings <- function(family = "^[.]family$", self = FALSE) {
   if (self) {
     return(children)
   }
+
   self <- getwd()
   grep(self, children, value = TRUE, invert = TRUE)
 }
