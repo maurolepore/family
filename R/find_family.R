@@ -24,10 +24,10 @@
 #' sister <- dir_create(path(parent, "sister"))
 #' brother <- dir_create(path(parent, "brother"))
 #'
-#' # Add a file ".child" in the root each sibling under a parent directory
-#' file_create(path(me, ".child"))
-#' file_create(path(sister, ".child"))
-#' file_create(path(brother, ".child"))
+#' # Add a file ".family" in the root each sibling under a parent directory
+#' file_create(path(me, ".family"))
+#' file_create(path(sister, ".family"))
+#' file_create(path(brother, ".family"))
 #'
 #' # Other directories will be ignored
 #' neighbour <- dir_create(path(parent, "neighbour"))
@@ -35,9 +35,9 @@
 #' dir_tree(parent)
 #'
 #' # From anywhere
-#' find_family(parent, family = "^[.]child$")
+#' find_family(parent, family = "^[.]family$")
 #'
-#' # From the parent (using default `family = "^[.]child$")
+#' # From the parent (using default `family = "^[.]family$")
 #' setwd(parent)
 #' find_children()
 #'
@@ -48,7 +48,7 @@
 #' find_parent()
 #'
 #' setwd(wd)
-find_family <- function(parent, family = "^[.]child$") {
+find_family <- function(parent, family = "^[.]family$") {
   if (!identical(length(parent), 1L)) {
     stop("`parent` must be have length 1", call. = FALSE)
   }
@@ -72,20 +72,20 @@ detect_file <- function(paths, file) {
 
 #' @export
 #' @rdname find_family
-find_parent <- function(parent = "..", family = "^[.]child$") {
+find_parent <- function(parent = "..", family = "^[.]family$") {
   children <- find_family(parent, family)
   unique(path_dir(children))
 }
 
 #' @export
 #' @rdname find_family
-find_children <- function(parent = ".", family = "^[.]child$") {
+find_children <- function(parent = ".", family = "^[.]family$") {
   find_family(parent, family)
 }
 
 #' @export
 #' @rdname find_family
-find_siblings <- function(parent = "..", family = "^[.]child$", self = FALSE) {
+find_siblings <- function(parent = "..", family = "^[.]family$", self = FALSE) {
   children <- find_family(parent, family)
   if (self) {
     return(children)

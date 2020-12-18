@@ -7,13 +7,13 @@
 \alias{find_siblings}
 \title{Find directories of a family}
 \usage{
-find_family(parent, family = "^[.]child$")
+find_family(parent, family = "^[.]family$")
 
-find_parent(parent = "..", family = "^[.]child$")
+find_parent(parent = "..", family = "^[.]family$")
 
-find_children(parent = ".", family = "^[.]child$")
+find_children(parent = ".", family = "^[.]family$")
 
-find_siblings(parent = "..", family = "^[.]child$", self = FALSE)
+find_siblings(parent = "..", family = "^[.]family$", self = FALSE)
 }
 \arguments{
 \item{parent}{A string giving a single path to the parent directory. The
@@ -45,10 +45,10 @@ me <- dir_create(path(parent, "me"))
 sister <- dir_create(path(parent, "sister"))
 brother <- dir_create(path(parent, "brother"))
 
-# Add a file ".child" in the root each sibling under a parent directory
-file_create(path(me, ".child"))
-file_create(path(sister, ".child"))
-file_create(path(brother, ".child"))
+# Add a file ".family" in the root each sibling under a parent directory
+file_create(path(me, ".family"))
+file_create(path(sister, ".family"))
+file_create(path(brother, ".family"))
 
 # Other directories will be ignored
 neighbour <- dir_create(path(parent, "neighbour"))
@@ -56,9 +56,9 @@ neighbour <- dir_create(path(parent, "neighbour"))
 dir_tree(parent)
 
 # From anywhere
-find_family(parent, family = "^[.]child$")
+find_family(parent, family = "^[.]family$")
 
-# From the parent (using default `family = "^[.]child$")
+# From the parent (using default `family = "^[.]family$")
 setwd(parent)
 find_children()
 

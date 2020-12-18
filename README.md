@@ -41,9 +41,9 @@ parent <- path(tempdir(), "parent")
 child_a <- dir_create(path(parent, "child_a"))
 child_b <- dir_create(path(parent, "child_b"))
 
-# Add a file ".child" in the root each sibling under a parent directory
-file_create(path(child_a, ".child"))
-file_create(path(child_b, ".child"))
+# Add a file ".family" in the root each sibling under a parent directory
+file_create(path(child_a, ".family"))
+file_create(path(child_b, ".family"))
 
 # Other directories will be ignored
 neighbour <- dir_create(path(parent, "other"))
@@ -55,10 +55,10 @@ dir_tree(parent)
 #> └── other
 
 # From anywhere
-find_family(parent, family = "^[.]child$")
+find_family(parent, family = "^[.]family$")
 #> [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"
 
-# From the parent (using default `family = "^[.]child$")
+# From the parent (using default `family = "^[.]family$")
 setwd(parent)
 find_children()
 #> [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"
