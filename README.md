@@ -12,9 +12,7 @@ coverage](https://codecov.io/gh/maurolepore/family/branch/master/graph/badge.svg
 
 The goal of the this package is to make it easy to reference a family of
 related directories, with one or more children directories under the
-same parent directory. Inspired by the package
-[here](https://github.com/r-lib/here), this is a simple way to find
-directories.
+same parent directory.
 
 ## Installation
 
@@ -50,7 +48,7 @@ file_create(path(brother, ".smith"))
 neighbour <- dir_create(path(parent, "neighbour"))
 
 dir_tree(parent)
-#> /tmp/Rtmpw1MKp6/parent
+#> /tmp/RtmpQCpCwG/parent
 #> ├── brother
 #> ├── me
 #> ├── neighbour
@@ -58,38 +56,38 @@ dir_tree(parent)
 
 # From anywhere
 family::find_family(parent, family = "^[.]smith$")
-#> [1] "/tmp/Rtmpw1MKp6/parent/brother" "/tmp/Rtmpw1MKp6/parent/me"     
-#> [3] "/tmp/Rtmpw1MKp6/parent/sister"
+#> [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     
+#> [3] "/tmp/RtmpQCpCwG/parent/sister"
 
 # You may use convenient helpers form the parent or a child:
 
 # From the parent
 setwd(parent)
 family::children("^[.]smith$")
-#> [1] "/tmp/Rtmpw1MKp6/parent/brother" "/tmp/Rtmpw1MKp6/parent/me"     
-#> [3] "/tmp/Rtmpw1MKp6/parent/sister"
+#> [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     
+#> [3] "/tmp/RtmpQCpCwG/parent/sister"
 
-# You may also pass `family` via `options()`
+# You may pass `family` via `options()`
 op <- options(family = "^[.]smith$")
 on.exit(op, add = TRUE)
 
 family::children()
-#> [1] "/tmp/Rtmpw1MKp6/parent/brother" "/tmp/Rtmpw1MKp6/parent/me"     
-#> [3] "/tmp/Rtmpw1MKp6/parent/sister"
+#> [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     
+#> [3] "/tmp/RtmpQCpCwG/parent/sister"
 
 # From a child
 setwd(me)
 family::siblings()
-#> [1] "/tmp/Rtmpw1MKp6/parent/brother" "/tmp/Rtmpw1MKp6/parent/sister"
+#> [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/sister"
 family::siblings(self = TRUE)
-#> [1] "/tmp/Rtmpw1MKp6/parent/brother" "/tmp/Rtmpw1MKp6/parent/me"     
-#> [3] "/tmp/Rtmpw1MKp6/parent/sister"
+#> [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     
+#> [3] "/tmp/RtmpQCpCwG/parent/sister"
 family::parent()
-#> [1] "/tmp/Rtmpw1MKp6/parent"
+#> [1] "/tmp/RtmpQCpCwG/parent"
 
 setwd(wd)
 ```
 
 ## Related projects
 
--   [here](https://github.com/r-lib/here).
+-   Inspired by the package [here](https://github.com/r-lib/here).
