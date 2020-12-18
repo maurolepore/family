@@ -1,16 +1,17 @@
 #' Find directories of a family
 #'
-#' @param parent Character vector of length 1, giving the path to the parent of
-#'   the siblings.
-#' @param family A regexp to match a file that defines the family.
-#' @param self `FALSE` excludes the working directory in the output?
+#' @param parent A string giving a single path to the parent directory. The
+#'   children directories should be nested one level under it.
+#' @param family A regular expression to match the name of the file that defines
+#'   the family.
+#' @param self Include the working directory in the output? Yes: `TRUE`; No:
+#'   `FALSE`.
 #'
 #' @return A character vector.
 #' @export
 #'
 #' @examples
 #' library(fs)
-#' library(withr)
 #' library(family)
 #'
 #' wd <- getwd()
@@ -18,78 +19,90 @@
 #'
 #' parent <- path(tempdir(), "parent")
 #'
-#' child_a <- dir_create(path(parent, "child_a"))
-#' child_b <- dir_create(path(parent, "child_b"))
+#' me <- dir_create(path(parent, "me"))
+#' sister <- dir_create(path(parent, "sister"))
+#' brother <- dir_create(path(parent, "brother"))
 #'
-#' # Add a file ".child" in the root each sibling under a parent directory
-#' file_create(path(child_a, ".child"))
-#' file_create(path(child_b, ".child"))
+#' # To define the family, say 'smith', add a file '.smith' to each child directory
+#' file_create(path(me, ".smith"))
+#' file_create(path(sister, ".smith"))
+#' file_create(path(brother, ".smith"))
 #'
 #' # Other directories will be ignored
-#' neighbour <- dir_create(path(parent, "other"))
+#' neighbour <- dir_create(path(parent, "neighbour"))
 #'
 #' dir_tree(parent)
 #'
 #' # From anywhere
-#' find_family(parent, family = "^[.]child$")
+#' family::find_family(parent, family = "^[.]smith$")
 #'
-#' # From the parent (using default `family = "^[.]child$")
+#' # You may use convenient helpers form the parent or a child:
+#'
+#' # From the parent
 #' setwd(parent)
-#' find_children()
+#' family::children("^[.]smith$")
 #'
-#' # From any child
-#' setwd(child_a)
-#' find_siblings()
-#' find_siblings(self = TRUE)
+#' # You may also pass `family` via `options()`
+#' op <- options(family = "^[.]smith$")
+#' on.exit(op, add = TRUE)
 #'
-#' setwd(child_b)
-#' find_siblings()
-#' find_parent()
+#' family::children()
+#'
+#' # From a child
+#' setwd(me)
+#' family::siblings()
+#' family::siblings(self = TRUE)
+#' family::parent()
 #'
 #' setwd(wd)
-find_family <- function(parent, family = "^[.]child$") {
+find_family <- function(parent, family = getOption("family") %||% "^[.]family") {
   if (!identical(length(parent), 1L)) {
-    stop("`parent` must be have length 1", call. = FALSE)
+    stop("`parent` must be of length 1", call. = FALSE)
   }
 
   paths <- list_all_files(parent)
   pick_children(paths, family)
 }
 
-#' @export
-#' @rdname find_family
-find_parent <- function(parent = "..", family = "^[.]child$") {
-  children <- find_family(parent, family)
-  unique(path_dir(children))
-}
-
-#' @export
-#' @rdname find_family
-find_children <- function(parent = ".", family = "^[.]child$") {
-  find_family(parent, family)
-}
-
-#' @export
-#' @rdname find_family
-find_siblings <- function(parent = "..", family = "^[.]child$", self = FALSE) {
-  children <- find_family(parent, family)
-  if (self) {
-    return(children)
-  }
-
-  self <- getwd()
-  grep(self, children, value = TRUE, invert = TRUE)
+`%||%` <- function(x, y) {
+  if (is.null(x)) y else x
 }
 
 list_all_files <- function(parent) {
   fs::dir_ls(fs::path_abs(parent), recurse = 1, all = TRUE)
 }
 
+pick_children <- function(paths, family) {
+  file_path <- paths[detect_file(paths, family)]
+  sort(path_dir(file_path))
+}
+
 detect_file <- function(paths, file) {
   grepl(file, path_file(paths))
 }
 
-pick_children <- function(paths, family) {
-  file_path <- paths[detect_file(paths, family)]
-  sort(path_dir(file_path))
+#' @export
+#' @rdname find_family
+parent <- function(family = getOption("family") %||% "^[.]family") {
+  children <- find_family("..", family)
+  unique(path_dir(children))
+}
+
+#' @export
+#' @rdname find_family
+children <- function(family = getOption("family") %||% "^[.]family") {
+  find_family(".", family)
+}
+
+#' @export
+#' @rdname find_family
+siblings <- function(family = getOption("family") %||% "^[.]family",
+                     self = FALSE) {
+  children <- find_family("..", family)
+  if (self) {
+    return(children)
+  }
+
+  self <- getwd()
+  grep(self, children, value = TRUE, invert = TRUE)
 }

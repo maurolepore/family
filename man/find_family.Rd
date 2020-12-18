@@ -2,26 +2,28 @@
 % Please edit documentation in R/find_family.R
 \name{find_family}
 \alias{find_family}
-\alias{find_parent}
-\alias{find_children}
-\alias{find_siblings}
+\alias{parent}
+\alias{children}
+\alias{siblings}
 \title{Find directories of a family}
 \usage{
-find_family(parent, family = "^[.]child$")
+find_family(parent, family = getOption("family") \%||\% "^[.]family")
 
-find_parent(parent = "..", family = "^[.]child$")
+parent(family = getOption("family") \%||\% "^[.]family")
 
-find_children(parent = ".", family = "^[.]child$")
+children(family = getOption("family") \%||\% "^[.]family")
 
-find_siblings(parent = "..", family = "^[.]child$", self = FALSE)
+siblings(family = getOption("family") \%||\% "^[.]family", self = FALSE)
 }
 \arguments{
-\item{parent}{Character vector of length 1, giving the path to the parent of
-the siblings.}
+\item{parent}{A string giving a single path to the parent directory. The
+children directories should be nested one level under it.}
 
-\item{family}{A regexp to match a file that defines the family.}
+\item{family}{A regular expression to match the name of the file that defines
+the family.}
 
-\item{self}{\code{FALSE} excludes the working directory in the output?}
+\item{self}{Include the working directory in the output? Yes: \code{TRUE}; No:
+\code{FALSE}.}
 }
 \value{
 A character vector.
@@ -31,7 +33,6 @@ Find directories of a family
 }
 \examples{
 library(fs)
-library(withr)
 library(family)
 
 wd <- getwd()
@@ -39,33 +40,40 @@ on.exit(setwd(wd))
 
 parent <- path(tempdir(), "parent")
 
-child_a <- dir_create(path(parent, "child_a"))
-child_b <- dir_create(path(parent, "child_b"))
+me <- dir_create(path(parent, "me"))
+sister <- dir_create(path(parent, "sister"))
+brother <- dir_create(path(parent, "brother"))
 
-# Add a file ".child" in the root each sibling under a parent directory
-file_create(path(child_a, ".child"))
-file_create(path(child_b, ".child"))
+# To define the family, say 'smith', add a file '.smith' to each child directory
+file_create(path(me, ".smith"))
+file_create(path(sister, ".smith"))
+file_create(path(brother, ".smith"))
 
 # Other directories will be ignored
-neighbour <- dir_create(path(parent, "other"))
+neighbour <- dir_create(path(parent, "neighbour"))
 
 dir_tree(parent)
 
 # From anywhere
-find_family(parent, family = "^[.]child$")
+family::find_family(parent, family = "^[.]smith$")
 
-# From the parent (using default `family = "^[.]child$")
+# You may use convenient helpers form the parent or a child:
+
+# From the parent
 setwd(parent)
-find_children()
+family::children("^[.]smith$")
 
-# From any child
-setwd(child_a)
-find_siblings()
-find_siblings(self = TRUE)
+# You may also pass `family` via `options()`
+op <- options(family = "^[.]smith$")
+on.exit(op, add = TRUE)
 
-setwd(child_b)
-find_siblings()
-find_parent()
+family::children()
+
+# From a child
+setwd(me)
+family::siblings()
+family::siblings(self = TRUE)
+family::parent()
 
 setwd(wd)
 }
