@@ -89,8 +89,8 @@ find_children <- function(family = "^[.]family$") {
 
 #' @export
 #' @rdname find_family
-find_siblings <- function(parent = "..", family = "^[.]family$", self = FALSE) {
-  children <- find_family(parent, family)
+find_siblings <- function(family = "^[.]family$", self = FALSE) {
+  children <- find_family("..", family)
   if (self) {
     return(children)
   }
