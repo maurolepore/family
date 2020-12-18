@@ -60,13 +60,13 @@ list_all_files <- function(parent) {
   fs::dir_ls(fs::path_abs(parent), recurse = 1, all = TRUE)
 }
 
-detect_file <- function(paths, file) {
-  grepl(file, path_file(paths))
-}
-
 pick_children <- function(paths, family) {
   file_path <- paths[detect_file(paths, family)]
   sort(path_dir(file_path))
+}
+
+detect_file <- function(paths, file) {
+  grepl(file, path_file(paths))
 }
 
 #' @export
