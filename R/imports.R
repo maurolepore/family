@@ -6,7 +6,9 @@ dir_create <- function(...) {
 }
 path <- function(...) file.path(...)
 file_create <- function(...) file.create(...)
-dir_ls <- function(...) list.files(...)
+dir_ls <- function(path, all, recurse = FALSE) {
+  list.files(path, recursive = recurse, all.files = all)
+}
 
 path_file <- function (path) {
   is_missing <- is.na(path)
