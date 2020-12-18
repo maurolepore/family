@@ -121,7 +121,3 @@ test_that("siblings() with family defined in options(), finds parent", {
 test_that("set_family", {
   skip("TODO")
 })
-
-test_that("we_are(parent, children)", {
-  skip("TODO")
-})
