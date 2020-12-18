@@ -35,8 +35,6 @@ devtools::install_github("maurolepore/family")
 
 ```{r}
 library(fs)
-library(withr)
-library(family)
 
 wd <- getwd()
 on.exit(setwd(wd))
@@ -58,17 +56,17 @@ neighbour <- dir_create(path(parent, "neighbour"))
 dir_tree(parent)
 
 # From anywhere
-find_family(parent, family = "^[.]family$")
+family::find_family(parent, family = "^[.]family$")
 
 # From the parent (using default `family = "^[.]family$")
 setwd(parent)
-children()
+family::children()
 
 # From a child
 setwd(me)
-siblings()
-siblings(self = TRUE)
-parent()
+family::siblings()
+family::siblings(self = TRUE)
+family::parent()
 
 setwd(wd)
 ```

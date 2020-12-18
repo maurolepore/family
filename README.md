@@ -30,8 +30,6 @@ devtools::install_github("maurolepore/family")
 
 ``` r
 library(fs)
-library(withr)
-library(family)
 
 wd <- getwd()
 on.exit(setwd(wd))
@@ -51,30 +49,32 @@ file_create(path(brother, ".family"))
 neighbour <- dir_create(path(parent, "neighbour"))
 
 dir_tree(parent)
-#> /tmp/Rtmp4igSMj/parent
+#> /tmp/RtmprUwLZC/parent
 #> ├── brother
 #> ├── me
 #> ├── neighbour
 #> └── sister
 
 # From anywhere
-find_family(parent, family = "^[.]family$")
-#> [1] "/tmp/Rtmp4igSMj/parent/brother" "/tmp/Rtmp4igSMj/parent/me"     
-#> [3] "/tmp/Rtmp4igSMj/parent/sister"
+family::find_family(parent, family = "^[.]family$")
+#> [1] "/tmp/RtmprUwLZC/parent/brother" "/tmp/RtmprUwLZC/parent/me"     
+#> [3] "/tmp/RtmprUwLZC/parent/sister"
 
 # From the parent (using default `family = "^[.]family$")
 setwd(parent)
-children()
-#> character(0)
+family::children()
+#> [1] "/tmp/RtmprUwLZC/parent/brother" "/tmp/RtmprUwLZC/parent/me"     
+#> [3] "/tmp/RtmprUwLZC/parent/sister"
 
 # From a child
 setwd(me)
-siblings()
-#> character(0)
-siblings(self = TRUE)
-#> character(0)
-parent()
-#> character(0)
+family::siblings()
+#> [1] "/tmp/RtmprUwLZC/parent/brother" "/tmp/RtmprUwLZC/parent/sister"
+family::siblings(self = TRUE)
+#> [1] "/tmp/RtmprUwLZC/parent/brother" "/tmp/RtmprUwLZC/parent/me"     
+#> [3] "/tmp/RtmprUwLZC/parent/sister"
+family::parent()
+#> [1] "/tmp/RtmprUwLZC/parent"
 
 setwd(wd)
 ```
