@@ -35,7 +35,6 @@ devtools::install_github("maurolepore/family")
 
 ```{r}
 library(fs)
-library(withr)
 library(family)
 
 wd <- getwd()
@@ -60,12 +59,16 @@ dir_tree(parent)
 # From anywhere
 family::find_family(parent, family = "^[.]smith$")
 
+# You may use convenient helpers form the parent or a child:
+
 # From the parent
 setwd(parent)
-family::children()
 family::children("^[.]smith$")
+
+# You may also pass `family` via `options()`
 op <- options(family = "^[.]smith$")
 on.exit(op, add = TRUE)
+
 family::children()
 
 # From a child

@@ -30,7 +30,6 @@ devtools::install_github("maurolepore/family")
 
 ``` r
 library(fs)
-library(withr)
 library(family)
 
 wd <- getwd()
@@ -51,7 +50,7 @@ file_create(path(brother, ".smith"))
 neighbour <- dir_create(path(parent, "neighbour"))
 
 dir_tree(parent)
-#> /tmp/RtmpgQjLXP/parent
+#> /tmp/RtmppZNPwl/parent
 #> ├── brother
 #> ├── me
 #> ├── neighbour
@@ -59,29 +58,34 @@ dir_tree(parent)
 
 # From anywhere
 family::find_family(parent, family = "^[.]smith$")
-#> [1] "/tmp/RtmpgQjLXP/parent/brother" "/tmp/RtmpgQjLXP/parent/me"     
-#> [3] "/tmp/RtmpgQjLXP/parent/sister"
+#> [1] "/tmp/RtmppZNPwl/parent/brother" "/tmp/RtmppZNPwl/parent/me"     
+#> [3] "/tmp/RtmppZNPwl/parent/sister"
+
+# You may use convenient helpers form the parent or a child:
 
 # From the parent
 setwd(parent)
-family::children()
-#> character(0)
 family::children("^[.]smith$")
-#> [1] "/tmp/RtmpgQjLXP/parent/brother" "/tmp/RtmpgQjLXP/parent/me"     
-#> [3] "/tmp/RtmpgQjLXP/parent/sister"
+#> [1] "/tmp/RtmppZNPwl/parent/brother" "/tmp/RtmppZNPwl/parent/me"     
+#> [3] "/tmp/RtmppZNPwl/parent/sister"
+
+# You may also pass `family` via `options()`
 op <- options(family = "^[.]smith$")
 on.exit(op, add = TRUE)
+
 family::children()
-#> character(0)
+#> [1] "/tmp/RtmppZNPwl/parent/brother" "/tmp/RtmppZNPwl/parent/me"     
+#> [3] "/tmp/RtmppZNPwl/parent/sister"
 
 # From a child
 setwd(me)
 family::siblings()
-#> character(0)
+#> [1] "/tmp/RtmppZNPwl/parent/brother" "/tmp/RtmppZNPwl/parent/sister"
 family::siblings(self = TRUE)
-#> character(0)
+#> [1] "/tmp/RtmppZNPwl/parent/brother" "/tmp/RtmppZNPwl/parent/me"     
+#> [3] "/tmp/RtmppZNPwl/parent/sister"
 family::parent()
-#> character(0)
+#> [1] "/tmp/RtmppZNPwl/parent"
 
 setwd(wd)
 ```
