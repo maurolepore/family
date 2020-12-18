@@ -51,7 +51,7 @@
 find_family <- function(parent, family = NULL) {
   family <- "^[.]family"
   if (!identical(length(parent), 1L)) {
-    stop("`parent` must be have length 1", call. = FALSE)
+    stop("`parent` must be of length 1", call. = FALSE)
   }
 
   paths <- list_all_files(parent)
