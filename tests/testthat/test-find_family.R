@@ -16,19 +16,21 @@ test_that("with parent path finds siblings", {
   expect_equal(path_file(find_family(parent)), family_siblings)
 })
 
-test_that("with relative path finds siblings", {
+test_that("with relative path from the parent, finds siblings", {
   parent <- withr::local_tempdir()
-  withr::local_dir(parent)
   create_file_in_child(parent, child = "a")
+  # From the parent
+  withr::local_dir(parent)
 
   expect_equal(path_file(find_family(".")), "a")
 })
 
-test_that("with relative path finds siblings", {
+test_that("with relative path from a child, finds siblings", {
   parent <- withr::local_tempdir()
   create_file_in_child(parent, child = "a")
-
+  # From a child
   withr::local_dir(path(parent, "a"))
+
   out <- find_family("..")
   expected <- as.character(path(parent, "a"))
 
