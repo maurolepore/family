@@ -58,7 +58,7 @@ dir_tree(parent)
 #> └── sister
 
 # From anywhere
-find_family(parent, family = "^[.]family$")
+family(parent, family = "^[.]family$")
 #> [1] "/tmp/Rtmp4igSMj/parent/brother" "/tmp/Rtmp4igSMj/parent/me"     
 #> [3] "/tmp/Rtmp4igSMj/parent/sister"
 
