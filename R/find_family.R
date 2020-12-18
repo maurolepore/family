@@ -56,6 +56,19 @@ find_family <- function(parent, family = "^[.]child$") {
   pick_children(paths, family)
 }
 
+list_all_files <- function(parent) {
+  fs::dir_ls(fs::path_abs(parent), recurse = 1, all = TRUE)
+}
+
+detect_file <- function(paths, file) {
+  grepl(file, path_file(paths))
+}
+
+pick_children <- function(paths, family) {
+  file_path <- paths[detect_file(paths, family)]
+  sort(path_dir(file_path))
+}
+
 #' @export
 #' @rdname find_family
 find_parent <- function(parent = "..", family = "^[.]child$") {
@@ -79,17 +92,4 @@ find_siblings <- function(parent = "..", family = "^[.]child$", self = FALSE) {
 
   self <- getwd()
   grep(self, children, value = TRUE, invert = TRUE)
-}
-
-list_all_files <- function(parent) {
-  fs::dir_ls(fs::path_abs(parent), recurse = 1, all = TRUE)
-}
-
-detect_file <- function(paths, file) {
-  grepl(file, path_file(paths))
-}
-
-pick_children <- function(paths, family) {
-  file_path <- paths[detect_file(paths, family)]
-  sort(path_dir(file_path))
 }
