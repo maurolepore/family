@@ -7,7 +7,7 @@
 \alias{find_siblings}
 \title{Find directories of a family}
 \usage{
-find_family(parent, family = "^[.]family$")
+find_family(parent, family = NULL)
 
 find_parent(parent = "..", family = "^[.]family$")
 
