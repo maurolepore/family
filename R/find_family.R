@@ -76,8 +76,8 @@ detect_file <- function(paths, file) {
 
 #' @export
 #' @rdname find_family
-find_parent <- function(parent = "..", family = "^[.]family$") {
-  children <- find_family(parent, family)
+find_parent <- function(family = "^[.]family$") {
+  children <- find_family("..", family)
   unique(path_dir(children))
 }
 
