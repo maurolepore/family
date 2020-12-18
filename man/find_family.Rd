@@ -33,7 +33,6 @@ Find directories of a family
 }
 \examples{
 library(fs)
-library(withr)
 library(family)
 
 wd <- getwd()
@@ -45,10 +44,10 @@ me <- dir_create(path(parent, "me"))
 sister <- dir_create(path(parent, "sister"))
 brother <- dir_create(path(parent, "brother"))
 
-# Add a file ".family" in the root each sibling under a parent directory
-file_create(path(me, ".family"))
-file_create(path(sister, ".family"))
-file_create(path(brother, ".family"))
+# To define the family, say 'smith', add a file '.smith' to each child directory
+file_create(path(me, ".smith"))
+file_create(path(sister, ".smith"))
+file_create(path(brother, ".smith"))
 
 # Other directories will be ignored
 neighbour <- dir_create(path(parent, "neighbour"))
@@ -56,17 +55,25 @@ neighbour <- dir_create(path(parent, "neighbour"))
 dir_tree(parent)
 
 # From anywhere
-find_family(parent, family = "^[.]family$")
+family::find_family(parent, family = "^[.]smith$")
 
-# From the parent (using default `family = "^[.]family$")
+# You may use convenient helpers form the parent or a child:
+
+# From the parent
 setwd(parent)
-children()
+family::children("^[.]smith$")
+
+# You may also pass `family` via `options()`
+op <- options(family = "^[.]smith$")
+on.exit(op, add = TRUE)
+
+family::children()
 
 # From a child
 setwd(me)
-siblings()
-siblings(self = TRUE)
-parent()
+family::siblings()
+family::siblings(self = TRUE)
+family::parent()
 
 setwd(wd)
 }
