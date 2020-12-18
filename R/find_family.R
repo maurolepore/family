@@ -2,7 +2,8 @@
 #'
 #' @param parent A string giving a single path to the parent directory. The
 #'   children directories should be nested one level under it.
-#' @param family A regexp to match a file that defines the family.
+#' @param family A regular expression to match the name of the file that defines
+#'   the family.
 #' @param self `FALSE` excludes the working directory in the output?
 #'
 #' @return A character vector.
