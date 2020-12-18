@@ -42,38 +42,45 @@ me <- dir_create(path(parent, "me"))
 sister <- dir_create(path(parent, "sister"))
 brother <- dir_create(path(parent, "brother"))
 
-# Add a file ".family" in the root each sibling under a parent directory
-file_create(path(me, ".family"))
-file_create(path(sister, ".family"))
-file_create(path(brother, ".family"))
+# To define the family, say 'smith', add a file '.smith' to each child directory
+file_create(path(me, ".smith"))
+file_create(path(sister, ".smith"))
+file_create(path(brother, ".smith"))
 
 # Other directories will be ignored
 neighbour <- dir_create(path(parent, "neighbour"))
 
 dir_tree(parent)
-#> /tmp/Rtmp4igSMj/parent
+#> /tmp/RtmpgQjLXP/parent
 #> ├── brother
 #> ├── me
 #> ├── neighbour
 #> └── sister
 
 # From anywhere
-find_family(parent, family = "^[.]family$")
-#> [1] "/tmp/Rtmp4igSMj/parent/brother" "/tmp/Rtmp4igSMj/parent/me"     
-#> [3] "/tmp/Rtmp4igSMj/parent/sister"
+family::find_family(parent, family = "^[.]smith$")
+#> [1] "/tmp/RtmpgQjLXP/parent/brother" "/tmp/RtmpgQjLXP/parent/me"     
+#> [3] "/tmp/RtmpgQjLXP/parent/sister"
 
-# From the parent (using default `family = "^[.]family$")
+# From the parent
 setwd(parent)
-children()
+family::children()
+#> character(0)
+family::children("^[.]smith$")
+#> [1] "/tmp/RtmpgQjLXP/parent/brother" "/tmp/RtmpgQjLXP/parent/me"     
+#> [3] "/tmp/RtmpgQjLXP/parent/sister"
+op <- options(family = "^[.]smith$")
+on.exit(op, add = TRUE)
+family::children()
 #> character(0)
 
 # From a child
 setwd(me)
-siblings()
+family::siblings()
 #> character(0)
-siblings(self = TRUE)
+family::siblings(self = TRUE)
 #> character(0)
-parent()
+family::parent()
 #> character(0)
 
 setwd(wd)
