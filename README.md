@@ -38,43 +38,43 @@ on.exit(setwd(wd))
 
 parent <- path(tempdir(), "parent")
 
-child_a <- dir_create(path(parent, "child_a"))
-child_b <- dir_create(path(parent, "child_b"))
+me <- dir_create(path(parent, "me"))
+sister <- dir_create(path(parent, "sister"))
+brother <- dir_create(path(parent, "brother"))
 
 # Add a file ".family" in the root each sibling under a parent directory
-file_create(path(child_a, ".family"))
-file_create(path(child_b, ".family"))
+file_create(path(me, ".family"))
+file_create(path(sister, ".family"))
+file_create(path(brother, ".family"))
 
 # Other directories will be ignored
-neighbour <- dir_create(path(parent, "other"))
+neighbour <- dir_create(path(parent, "neighbour"))
 
 dir_tree(parent)
-#> /tmp/Rtmpstb3Iy/parent
-#> ├── child_a
-#> ├── child_b
-#> └── other
+#> /tmp/Rtmp4igSMj/parent
+#> ├── brother
+#> ├── me
+#> ├── neighbour
+#> └── sister
 
 # From anywhere
 find_family(parent, family = "^[.]family$")
-#> [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"
+#> [1] "/tmp/Rtmp4igSMj/parent/brother" "/tmp/Rtmp4igSMj/parent/me"     
+#> [3] "/tmp/Rtmp4igSMj/parent/sister"
 
 # From the parent (using default `family = "^[.]family$")
 setwd(parent)
 find_children()
-#> [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"
+#> character(0)
 
-# From any child
-setwd(child_a)
+# From a child
+setwd(me)
 find_siblings()
-#> [1] "/tmp/Rtmpstb3Iy/parent/child_b"
+#> character(0)
 find_siblings(self = TRUE)
-#> [1] "/tmp/Rtmpstb3Iy/parent/child_a" "/tmp/Rtmpstb3Iy/parent/child_b"
-
-setwd(child_b)
-find_siblings()
-#> [1] "/tmp/Rtmpstb3Iy/parent/child_a"
+#> character(0)
 find_parent()
-#> [1] "/tmp/Rtmpstb3Iy/parent"
+#> character(0)
 
 setwd(wd)
 ```
