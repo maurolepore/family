@@ -62,6 +62,16 @@ test_that("children() from parent finds children", {
   expect_equal(path_file(children), c("a", "b"))
 })
 
+test_that("children() with family defined in options(), finds parent", {
+  parent <- withr::local_tempdir()
+  create_file_in_child(parent, child = "a", family = ".smith")
+  create_file_in_child(parent, child = "b", family = ".smith")
+
+  withr::local_dir(parent)
+  withr::local_options(list(family = ".smith"))
+  expect_equal(path_file(children()), c("a", "b"))
+})
+
 test_that("parent() from child finds parent", {
   parent <- withr::local_tempdir()
   create_file_in_child(parent, child = "a")
@@ -99,6 +109,15 @@ test_that("siblings() is sensitive to self", {
   expect_equal(path_file(siblings(self = TRUE)), c("a", "b"))
 })
 
+test_that("siblings() with family defined in options(), finds parent", {
+  parent <- withr::local_tempdir()
+  create_file_in_child(parent, child = "a", family = ".smith")
+  create_file_in_child(parent, child = "b", family = ".smith")
+
+  withr::local_dir(path(parent, "a"))
+  withr::local_options(list(family = ".smith"))
+  expect_equal(path_file(siblings()), "b")
+})
 test_that("set_family", {
   skip("TODO")
 })
