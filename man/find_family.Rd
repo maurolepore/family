@@ -16,8 +16,8 @@ find_children(parent = ".", family = "^[.]child$")
 find_siblings(parent = "..", family = "^[.]child$", self = FALSE)
 }
 \arguments{
-\item{parent}{Character vector of length 1, giving the path to the parent of
-the siblings.}
+\item{parent}{A string giving a single path to the parent directory. The
+children directories should be nested one level under it.}
 
 \item{family}{A regexp to match a file that defines the family.}
 
