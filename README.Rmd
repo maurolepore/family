@@ -66,8 +66,8 @@ find_children()
 
 # From a child
 setwd(me)
-find_siblings()
-find_siblings(self = TRUE)
+siblings()
+siblings(self = TRUE)
 find_parent()
 
 setwd(wd)

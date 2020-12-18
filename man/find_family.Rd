@@ -4,16 +4,16 @@
 \alias{find_family}
 \alias{find_parent}
 \alias{find_children}
-\alias{find_siblings}
+\alias{siblings}
 \title{Find directories of a family}
 \usage{
 find_family(parent, family = getOption("family") \%||\% "^[.]family")
 
-find_parent(parent = "..", family = "^[.]family$")
+find_parent(family = "^[.]family$")
 
-find_children(parent = ".", family = "^[.]family$")
+find_children(family = "^[.]family$")
 
-find_siblings(parent = "..", family = "^[.]family$", self = FALSE)
+siblings(family = "^[.]family$", self = FALSE)
 }
 \arguments{
 \item{parent}{A string giving a single path to the parent directory. The
@@ -64,8 +64,8 @@ find_children()
 
 # From a child
 setwd(me)
-find_siblings()
-find_siblings(self = TRUE)
+siblings()
+siblings(self = TRUE)
 find_parent()
 
 setwd(wd)

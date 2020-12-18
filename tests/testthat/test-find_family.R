@@ -71,22 +71,22 @@ test_that("find_parent() from child finds parent", {
   expect_equal(path_file(find_parent()), path_file(parent))
 })
 
-test_that("find_siblings() from child finds siblings", {
+test_that("siblings() from child finds siblings", {
   parent <- withr::local_tempdir()
   create_file_in_child(parent, child = "a")
   create_file_in_child(parent, child = "b")
 
   withr::local_dir(path(parent, "a"))
-  expect_equal(path_file(find_siblings()), "b")
+  expect_equal(path_file(siblings()), "b")
 })
 
-test_that("find_siblings() is sensitive to self", {
+test_that("siblings() is sensitive to self", {
   parent <- withr::local_tempdir()
   create_file_in_child(parent, child = "a")
   create_file_in_child(parent, child = "b")
 
   withr::local_dir(path(parent, "a"))
-  expect_equal(path_file(find_siblings(self = TRUE)), c("a", "b"))
+  expect_equal(path_file(siblings(self = TRUE)), c("a", "b"))
 })
 
 test_that("set_family", {

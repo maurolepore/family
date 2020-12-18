@@ -3,7 +3,7 @@
 export(find_children)
 export(find_family)
 export(find_parent)
-export(find_siblings)
+export(siblings)
 importFrom(fs,path)
 importFrom(fs,path_dir)
 importFrom(fs,path_file)

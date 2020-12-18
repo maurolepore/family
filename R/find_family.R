@@ -43,8 +43,8 @@
 #'
 #' # From a child
 #' setwd(me)
-#' find_siblings()
-#' find_siblings(self = TRUE)
+#' siblings()
+#' siblings(self = TRUE)
 #' find_parent()
 #'
 #' setwd(wd)
@@ -89,7 +89,7 @@ find_children <- function(family = "^[.]family$") {
 
 #' @export
 #' @rdname find_family
-find_siblings <- function(family = "^[.]family$", self = FALSE) {
+siblings <- function(family = "^[.]family$", self = FALSE) {
   children <- find_family("..", family)
   if (self) {
     return(children)
