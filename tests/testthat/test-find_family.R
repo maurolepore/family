@@ -77,3 +77,11 @@ test_that("find_siblings() is sensitive to self", {
   withr::local_dir(path(parent, "a"))
   expect_equal(path_file(find_siblings(self = TRUE)), c("a", "b"))
 })
+
+test_that("set_family", {
+  skip("TODO")
+})
+
+test_that("we_are(parent, children)", {
+  skip("TODO")
+})
