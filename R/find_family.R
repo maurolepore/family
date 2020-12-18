@@ -83,8 +83,8 @@ find_parent <- function(family = "^[.]family$") {
 
 #' @export
 #' @rdname find_family
-find_children <- function(parent = ".", family = "^[.]family$") {
-  find_family(parent, family)
+find_children <- function(family = "^[.]family$") {
+  find_family(".", family)
 }
 
 #' @export
