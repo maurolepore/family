@@ -21,7 +21,6 @@ test_that("with file defined via options(), finds siblings", {
   # TODO: rename helper arguments to match find_family
   create_file_in_child(parent, child = "a", file = ".smith")
   withr::local_dir(parent)
-  # TODO: rename family argument to name so this becomes family.name
   withr::local_options(list(family = ".smith"))
 
   expect_equal(path_file(find_family(".")), "a")
