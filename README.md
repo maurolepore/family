@@ -41,15 +41,18 @@ sister <- dir_create(path(parent, "sister"))
 brother <- dir_create(path(parent, "brother"))
 
 # Add a file ".family" in the root each sibling under a parent directory
-file_create(path(me, ".family"))
-file_create(path(sister, ".family"))
-file_create(path(brother, ".family"))
+file.create(path(me, ".family"))
+#> [1] TRUE
+file.create(path(sister, ".family"))
+#> [1] TRUE
+file.create(path(brother, ".family"))
+#> [1] TRUE
 
 # Other directories will be ignored
 neighbour <- dir_create(path(parent, "neighbour"))
 
 dir_tree(parent)
-#> /tmp/RtmprUwLZC/parent
+#> /tmp/RtmpSkNshh/parent
 #> ├── brother
 #> ├── me
 #> ├── neighbour
@@ -57,24 +60,24 @@ dir_tree(parent)
 
 # From anywhere
 family::find_family(parent, family = "^[.]family$")
-#> [1] "/tmp/RtmprUwLZC/parent/brother" "/tmp/RtmprUwLZC/parent/me"     
-#> [3] "/tmp/RtmprUwLZC/parent/sister"
+#> [1] "/tmp/RtmpSkNshh/parent/brother" "/tmp/RtmpSkNshh/parent/me"     
+#> [3] "/tmp/RtmpSkNshh/parent/sister"
 
 # From the parent (using default `family = "^[.]family$")
 setwd(parent)
 family::children()
-#> [1] "/tmp/RtmprUwLZC/parent/brother" "/tmp/RtmprUwLZC/parent/me"     
-#> [3] "/tmp/RtmprUwLZC/parent/sister"
+#> [1] "/tmp/RtmpSkNshh/parent/brother" "/tmp/RtmpSkNshh/parent/me"     
+#> [3] "/tmp/RtmpSkNshh/parent/sister"
 
 # From a child
 setwd(me)
 family::siblings()
-#> [1] "/tmp/RtmprUwLZC/parent/brother" "/tmp/RtmprUwLZC/parent/sister"
+#> [1] "/tmp/RtmpSkNshh/parent/brother" "/tmp/RtmpSkNshh/parent/sister"
 family::siblings(self = TRUE)
-#> [1] "/tmp/RtmprUwLZC/parent/brother" "/tmp/RtmprUwLZC/parent/me"     
-#> [3] "/tmp/RtmprUwLZC/parent/sister"
+#> [1] "/tmp/RtmpSkNshh/parent/brother" "/tmp/RtmpSkNshh/parent/me"     
+#> [3] "/tmp/RtmpSkNshh/parent/sister"
 family::parent()
-#> [1] "/tmp/RtmprUwLZC/parent"
+#> [1] "/tmp/RtmpSkNshh/parent"
 
 setwd(wd)
 ```
