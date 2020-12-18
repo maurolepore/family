@@ -58,7 +58,7 @@ neighbour <- dir_create(path(parent, "neighbour"))
 dir_tree(parent)
 
 # From anywhere
-family(parent, family = "^[.]family$")
+find_family(parent, family = "^[.]family$")
 
 # From the parent (using default `family = "^[.]family$")
 setwd(parent)
