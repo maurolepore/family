@@ -3,7 +3,7 @@
 \name{find_family}
 \alias{find_family}
 \alias{find_parent}
-\alias{find_children}
+\alias{children}
 \alias{siblings}
 \title{Find directories of a family}
 \usage{
@@ -11,7 +11,7 @@ find_family(parent, family = getOption("family") \%||\% "^[.]family")
 
 find_parent(family = "^[.]family$")
 
-find_children(family = "^[.]family$")
+children(family = "^[.]family$")
 
 siblings(family = "^[.]family$", self = FALSE)
 }
@@ -60,7 +60,7 @@ find_family(parent, family = "^[.]family$")
 
 # From the parent (using default `family = "^[.]family$")
 setwd(parent)
-find_children()
+children()
 
 # From a child
 setwd(me)

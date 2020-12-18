@@ -64,7 +64,7 @@ find_family(parent, family = "^[.]family$")
 
 # From the parent (using default `family = "^[.]family$")
 setwd(parent)
-find_children()
+children()
 #> character(0)
 
 # From a child

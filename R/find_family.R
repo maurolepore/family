@@ -39,7 +39,7 @@
 #'
 #' # From the parent (using default `family = "^[.]family$")
 #' setwd(parent)
-#' find_children()
+#' children()
 #'
 #' # From a child
 #' setwd(me)
@@ -83,7 +83,7 @@ find_parent <- function(family = "^[.]family$") {
 
 #' @export
 #' @rdname find_family
-find_children <- function(family = "^[.]family$") {
+children <- function(family = "^[.]family$") {
   find_family(".", family)
 }
 
