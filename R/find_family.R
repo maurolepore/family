@@ -20,15 +20,17 @@
 #'
 #' parent <- path(tempdir(), "parent")
 #'
-#' child_a <- dir_create(path(parent, "child_a"))
-#' child_b <- dir_create(path(parent, "child_b"))
+#' me <- dir_create(path(parent, "me"))
+#' sister <- dir_create(path(parent, "sister"))
+#' brother <- dir_create(path(parent, "brother"))
 #'
 #' # Add a file ".child" in the root each sibling under a parent directory
-#' file_create(path(child_a, ".child"))
-#' file_create(path(child_b, ".child"))
+#' file_create(path(me, ".child"))
+#' file_create(path(sister, ".child"))
+#' file_create(path(brother, ".child"))
 #'
 #' # Other directories will be ignored
-#' neighbour <- dir_create(path(parent, "other"))
+#' neighbour <- dir_create(path(parent, "neighbour"))
 #'
 #' dir_tree(parent)
 #'
@@ -39,13 +41,10 @@
 #' setwd(parent)
 #' find_children()
 #'
-#' # From any child
-#' setwd(child_a)
+#' # From a child
+#' setwd(me)
 #' find_siblings()
 #' find_siblings(self = TRUE)
-#'
-#' setwd(child_b)
-#' find_siblings()
 #' find_parent()
 #'
 #' setwd(wd)
