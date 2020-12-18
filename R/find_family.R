@@ -48,13 +48,18 @@
 #' find_parent()
 #'
 #' setwd(wd)
-find_family <- function(parent, family = "^[.]family$") {
+find_family <- function(parent, family = NULL) {
+  family <- "^[.]family"
   if (!identical(length(parent), 1L)) {
     stop("`parent` must be have length 1", call. = FALSE)
   }
 
   paths <- list_all_files(parent)
   pick_children(paths, family)
+}
+
+`%||%` <- function(x, y) {
+  if (is.null(x)) y else x
 }
 
 list_all_files <- function(parent) {
