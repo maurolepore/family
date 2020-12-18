@@ -9,11 +9,11 @@
 \usage{
 find_family(parent, family = getOption("family") \%||\% "^[.]family")
 
-parent(family = "^[.]family$")
+parent(family = getOption("family") \%||\% "^[.]family")
 
-children(family = "^[.]family$")
+children(family = getOption("family") \%||\% "^[.]family")
 
-siblings(family = "^[.]family$", self = FALSE)
+siblings(family = getOption("family") \%||\% "^[.]family", self = FALSE)
 }
 \arguments{
 \item{parent}{A string giving a single path to the parent directory. The

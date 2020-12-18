@@ -83,13 +83,14 @@ parent <- function(family = getOption("family") %||% "^[.]family") {
 
 #' @export
 #' @rdname find_family
-children <- function(family = "^[.]family$") {
+children <- function(family = getOption("family") %||% "^[.]family") {
   find_family(".", family)
 }
 
 #' @export
 #' @rdname find_family
-siblings <- function(family = "^[.]family$", self = FALSE) {
+siblings <- function(family = getOption("family") %||% "^[.]family",
+                     self = FALSE) {
   children <- find_family("..", family)
   if (self) {
     return(children)
