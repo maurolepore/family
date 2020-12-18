@@ -18,8 +18,7 @@ test_that("with parent path finds siblings", {
 
 test_that("with file defined via options(), finds siblings", {
   parent <- withr::local_tempdir()
-  # TODO: rename helper arguments to match find_family
-  create_file_in_child(parent, child = "a", file = ".smith")
+  create_file_in_child(parent, child = "a", family = ".smith")
   withr::local_dir(parent)
   withr::local_options(list(family = ".smith"))
 
