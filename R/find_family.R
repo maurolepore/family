@@ -25,9 +25,9 @@
 #' brother <- dir_create(path(parent, "brother"))
 #'
 #' # Add a file ".family" in the root each sibling under a parent directory
-#' file.create(path(me, ".family"))
-#' file.create(path(sister, ".family"))
-#' file.create(path(brother, ".family"))
+#' file_create(path(me, ".family"))
+#' file_create(path(sister, ".family"))
+#' file_create(path(brother, ".family"))
 #'
 #' # Other directories will be ignored
 #' neighbour <- dir_create(path(parent, "neighbour"))
