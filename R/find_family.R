@@ -48,9 +48,7 @@
 #' find_parent()
 #'
 #' setwd(wd)
-find_family <- function(parent, family = NULL) {
-  family <- family %||% getOption("family.family") %||% "^[.]family"
-
+find_family <- function(parent, family = getOption("family.family") %||% "^[.]family") {
   if (!identical(length(parent), 1L)) {
     stop("`parent` must be of length 1", call. = FALSE)
   }
