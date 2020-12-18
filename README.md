@@ -28,14 +28,24 @@ devtools::install_github("maurolepore/family")
 
 ## Example
 
-``` r
-library(fs)
+Helpers. For more robust implementations see <https://fs.r-lib.org/>.
 
+``` r
+dir_create <- function(...) {
+  path <- path(...)
+  dir.create(path, recursive = TRUE)
+  invisible(path)
+}
+path <- function(...) file.path(...)
+file_create <- function(...) file.create(...)
+dir_ls <- function(...) list.files(...)
+```
+
+``` r
 wd <- getwd()
 on.exit(setwd(wd))
 
 parent <- path(tempdir(), "parent")
-
 me <- dir_create(path(parent, "me"))
 sister <- dir_create(path(parent, "sister"))
 brother <- dir_create(path(parent, "brother"))
@@ -51,33 +61,29 @@ file.create(path(brother, ".family"))
 # Other directories will be ignored
 neighbour <- dir_create(path(parent, "neighbour"))
 
-dir_tree(parent)
-#> /tmp/RtmpSkNshh/parent
-#> ├── brother
-#> ├── me
-#> ├── neighbour
-#> └── sister
+list.files(parent)
+#> [1] "brother"   "me"        "neighbour" "sister"
 
 # From anywhere
 family::find_family(parent, family = "^[.]family$")
-#> [1] "/tmp/RtmpSkNshh/parent/brother" "/tmp/RtmpSkNshh/parent/me"     
-#> [3] "/tmp/RtmpSkNshh/parent/sister"
+#> [1] "/tmp/RtmpTCazhE/parent/brother" "/tmp/RtmpTCazhE/parent/me"     
+#> [3] "/tmp/RtmpTCazhE/parent/sister"
 
 # From the parent (using default `family = "^[.]family$")
 setwd(parent)
 family::children()
-#> [1] "/tmp/RtmpSkNshh/parent/brother" "/tmp/RtmpSkNshh/parent/me"     
-#> [3] "/tmp/RtmpSkNshh/parent/sister"
+#> [1] "/tmp/RtmpTCazhE/parent/brother" "/tmp/RtmpTCazhE/parent/me"     
+#> [3] "/tmp/RtmpTCazhE/parent/sister"
 
 # From a child
 setwd(me)
 family::siblings()
-#> [1] "/tmp/RtmpSkNshh/parent/brother" "/tmp/RtmpSkNshh/parent/sister"
+#> [1] "/tmp/RtmpTCazhE/parent/brother" "/tmp/RtmpTCazhE/parent/sister"
 family::siblings(self = TRUE)
-#> [1] "/tmp/RtmpSkNshh/parent/brother" "/tmp/RtmpSkNshh/parent/me"     
-#> [3] "/tmp/RtmpSkNshh/parent/sister"
+#> [1] "/tmp/RtmpTCazhE/parent/brother" "/tmp/RtmpTCazhE/parent/me"     
+#> [3] "/tmp/RtmpTCazhE/parent/sister"
 family::parent()
-#> [1] "/tmp/RtmpSkNshh/parent"
+#> [1] "/tmp/RtmpTCazhE/parent"
 
 setwd(wd)
 ```
