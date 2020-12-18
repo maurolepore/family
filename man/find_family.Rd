@@ -2,14 +2,14 @@
 % Please edit documentation in R/find_family.R
 \name{find_family}
 \alias{find_family}
-\alias{find_parent}
+\alias{parent}
 \alias{children}
 \alias{siblings}
 \title{Find directories of a family}
 \usage{
 find_family(parent, family = getOption("family") \%||\% "^[.]family")
 
-find_parent(family = "^[.]family$")
+parent(family = "^[.]family$")
 
 children(family = "^[.]family$")
 
@@ -66,7 +66,7 @@ children()
 setwd(me)
 siblings()
 siblings(self = TRUE)
-find_parent()
+parent()
 
 setwd(wd)
 }

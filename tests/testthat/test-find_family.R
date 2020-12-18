@@ -62,13 +62,13 @@ test_that("children() from parent finds children", {
   expect_equal(path_file(children), c("a", "b"))
 })
 
-test_that("find_parent() from child finds parent", {
+test_that("parent() from child finds parent", {
   parent <- withr::local_tempdir()
   create_file_in_child(parent, child = "a")
   create_file_in_child(parent, child = "b")
 
   withr::local_dir(path(parent, "a"))
-  expect_equal(path_file(find_parent()), path_file(parent))
+  expect_equal(path_file(parent()), path_file(parent))
 })
 
 test_that("siblings() from child finds siblings", {

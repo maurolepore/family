@@ -73,7 +73,7 @@ siblings()
 #> character(0)
 siblings(self = TRUE)
 #> character(0)
-find_parent()
+parent()
 #> character(0)
 
 setwd(wd)

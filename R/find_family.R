@@ -45,7 +45,7 @@
 #' setwd(me)
 #' siblings()
 #' siblings(self = TRUE)
-#' find_parent()
+#' parent()
 #'
 #' setwd(wd)
 find_family <- function(parent, family = getOption("family") %||% "^[.]family") {
@@ -76,7 +76,7 @@ detect_file <- function(paths, file) {
 
 #' @export
 #' @rdname find_family
-find_parent <- function(family = "^[.]family$") {
+parent <- function(family = "^[.]family$") {
   children <- find_family("..", family)
   unique(path_dir(children))
 }

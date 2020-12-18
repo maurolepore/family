@@ -68,7 +68,7 @@ children()
 setwd(me)
 siblings()
 siblings(self = TRUE)
-find_parent()
+parent()
 
 setwd(wd)
 ```
