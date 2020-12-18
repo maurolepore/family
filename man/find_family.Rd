@@ -19,9 +19,10 @@ find_siblings(parent = "..", family = "^[.]child$", self = FALSE)
 \item{parent}{A string giving a single path to the parent directory. The
 children directories should be nested one level under it.}
 
-\item{family}{A regexp to match a file that defines the family.}
+\item{family}{A regular expression to match the name of the file that defines
+the family.}
 
-\item{self}{\code{FALSE} excludes the working directory in the output?}
+\item{self}{Include the working directory in the output?}
 }
 \value{
 A character vector.
