@@ -28,66 +28,62 @@ devtools::install_github("maurolepore/family")
 
 ## Example
 
-Helpers. For more robust implementations see <https://fs.r-lib.org/>.
-
-``` r
-dir_create <- function(...) {
-  path <- path(...)
-  dir.create(path, recursive = TRUE)
-  invisible(path)
-}
-path <- function(...) file.path(...)
-file_create <- function(...) file.create(...)
-dir_ls <- function(...) list.files(...)
-```
-
 ``` r
 wd <- getwd()
 on.exit(setwd(wd))
 
-parent <- path(tempdir(), "parent")
-me <- dir_create(path(parent, "me"))
-sister <- dir_create(path(parent, "sister"))
-brother <- dir_create(path(parent, "brother"))
+# Helper
+create_directory <- function(...) {
+  path <- file.path(...)
+  dir.create(path, recursive = TRUE)
+  invisible(path)
+}
+
+
+
+parent <- file.path(tempdir(), "parent")
+me <- create_directory(file.path(parent, "me"))
+sister <- create_directory(file.path(parent, "sister"))
+brother <- create_directory(file.path(parent, "brother"))
 
 # Add a file ".family" in the root each sibling under a parent directory
-file.create(path(me, ".family"))
+file.create(file.path(me, ".family"))
 #> [1] TRUE
-file.create(path(sister, ".family"))
+file.create(file.path(sister, ".family"))
 #> [1] TRUE
-file.create(path(brother, ".family"))
+file.create(file.path(brother, ".family"))
 #> [1] TRUE
 
 # Other directories will be ignored
-neighbour <- dir_create(path(parent, "neighbour"))
+neighbour <- create_directory(file.path(parent, "neighbour"))
 
 list.files(parent)
 #> [1] "brother"   "me"        "neighbour" "sister"
 
 # From anywhere
 family::find_family(parent, family = "^[.]family$")
-#> [1] "/tmp/RtmpTCazhE/parent/brother" "/tmp/RtmpTCazhE/parent/me"     
-#> [3] "/tmp/RtmpTCazhE/parent/sister"
+#> [1] "/tmp/RtmpCrLgha/parent/brother" "/tmp/RtmpCrLgha/parent/me"     
+#> [3] "/tmp/RtmpCrLgha/parent/sister"
 
 # From the parent (using default `family = "^[.]family$")
 setwd(parent)
 family::children()
-#> [1] "/tmp/RtmpTCazhE/parent/brother" "/tmp/RtmpTCazhE/parent/me"     
-#> [3] "/tmp/RtmpTCazhE/parent/sister"
+#> [1] "/tmp/RtmpCrLgha/parent/brother" "/tmp/RtmpCrLgha/parent/me"     
+#> [3] "/tmp/RtmpCrLgha/parent/sister"
 
 # From a child
 setwd(me)
 family::siblings()
-#> [1] "/tmp/RtmpTCazhE/parent/brother" "/tmp/RtmpTCazhE/parent/sister"
+#> [1] "/tmp/RtmpCrLgha/parent/brother" "/tmp/RtmpCrLgha/parent/sister"
 family::siblings(self = TRUE)
-#> [1] "/tmp/RtmpTCazhE/parent/brother" "/tmp/RtmpTCazhE/parent/me"     
-#> [3] "/tmp/RtmpTCazhE/parent/sister"
+#> [1] "/tmp/RtmpCrLgha/parent/brother" "/tmp/RtmpCrLgha/parent/me"     
+#> [3] "/tmp/RtmpCrLgha/parent/sister"
 family::parent()
-#> [1] "/tmp/RtmpTCazhE/parent"
+#> [1] "/tmp/RtmpCrLgha/parent"
 
 setwd(wd)
 ```
 
 ## Related projects
 
--   [here](https://github.com/r-lib/here).
+-   Inspired by [here](https://github.com/r-lib/here).
