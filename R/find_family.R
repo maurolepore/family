@@ -4,7 +4,8 @@
 #'   children directories should be nested one level under it.
 #' @param family A regular expression to match the name of the file that defines
 #'   the family.
-#' @param self Include the working directory in the output?
+#' @param self Include the working directory in the output? Yes: `TRUE`; No:
+#'   `FALSE`.
 #'
 #' @return A character vector.
 #' @export

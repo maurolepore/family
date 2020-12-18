@@ -22,7 +22,8 @@ children directories should be nested one level under it.}
 \item{family}{A regular expression to match the name of the file that defines
 the family.}
 
-\item{self}{Include the working directory in the output?}
+\item{self}{Include the working directory in the output? Yes: \code{TRUE}; No:
+\code{FALSE}.}
 }
 \value{
 A character vector.
