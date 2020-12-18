@@ -20,9 +20,9 @@ test_that("with file defined via options(), finds siblings", {
   parent <- withr::local_tempdir()
   # TODO: rename helper arguments to match find_family
   create_file_in_child(parent, child = "a", file = ".smith")
-  # From the parent
   withr::local_dir(parent)
-
+  # TODO: rename family argument to name so this becomes family.name
+  options(family.family = ".smith")
   expect_equal(path_file(find_family(".")), "a")
 })
 
