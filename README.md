@@ -65,10 +65,10 @@ dir_tree(mother, recurse = TRUE, all = TRUE)
 #>     └── .us
 ```
 
-`find_family()` finds the family from anywhere.
+`family()` finds the family from anywhere.
 
 ``` r
-find_family(parent = mother, family = family_name)
+family(parent = mother, family = family_name)
 #> [1] "/tmp/Rtmpbqof9n/mother/brother" "/tmp/Rtmpbqof9n/mother/sister"
 ```
 

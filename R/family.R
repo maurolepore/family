@@ -34,7 +34,7 @@
 #' dir_tree(parent)
 #'
 #' # From anywhere
-#' family::find_family(parent, family = "^[.]smith$")
+#' family::family(parent, family = "^[.]smith$")
 #'
 #' # You may use convenient helpers form the parent or a child:
 #'
@@ -55,7 +55,7 @@
 #' family::parent()
 #'
 #' setwd(wd)
-find_family <- function(parent, family = getOption("family") %||% "^[.]family") {
+family <- function(parent, family = getOption("family") %||% "^[.]family") {
   if (!identical(length(parent), 1L)) {
     stop("`parent` must be of length 1", call. = FALSE)
   }
@@ -82,23 +82,23 @@ detect_file <- function(paths, file) {
 }
 
 #' @export
-#' @rdname find_family
+#' @rdname family
 parent <- function(family = getOption("family") %||% "^[.]family") {
-  children <- find_family("..", family)
+  children <- family("..", family)
   unique(path_dir(children))
 }
 
 #' @export
-#' @rdname find_family
+#' @rdname family
 children <- function(family = getOption("family") %||% "^[.]family") {
-  find_family(".", family)
+  family(".", family)
 }
 
 #' @export
-#' @rdname find_family
+#' @rdname family
 siblings <- function(family = getOption("family") %||% "^[.]family",
                      self = FALSE) {
-  children <- find_family("..", family)
+  children <- family("..", family)
   if (self) {
     return(children)
   }

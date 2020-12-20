@@ -1,5 +1,5 @@
 test_that("with too-long `parent` errors gracefully", {
-  expect_error(find_family(c("a", "b")), "must.*length 1")
+  expect_error(family(c("a", "b")), "must.*length 1")
 })
 
 test_that("with parent path finds siblings", {
@@ -13,7 +13,7 @@ test_that("with parent path finds siblings", {
   create_file_in_child(parent, child = "z", "not-dot-child")
 
   family_siblings <- c("a", "b")
-  expect_equal(path_file(find_family(parent)), family_siblings)
+  expect_equal(path_file(family(parent)), family_siblings)
 })
 
 test_that("with family defined via options(), finds siblings", {
@@ -22,7 +22,7 @@ test_that("with family defined via options(), finds siblings", {
   withr::local_dir(parent)
 
   withr::local_options(list(family = ".smith"))
-  expect_equal(path_file(find_family(".")), "a")
+  expect_equal(path_file(family(".")), "a")
 })
 
 test_that("with relative path from the parent, finds siblings", {
@@ -31,7 +31,7 @@ test_that("with relative path from the parent, finds siblings", {
   # From the parent
   withr::local_dir(parent)
 
-  expect_equal(path_file(find_family(".")), "a")
+  expect_equal(path_file(family(".")), "a")
 })
 
 test_that("with relative path from a child, finds siblings", {
@@ -40,7 +40,7 @@ test_that("with relative path from a child, finds siblings", {
   # From a child
   withr::local_dir(path(parent, "a"))
 
-  out <- find_family("..")
+  out <- family("..")
   expected <- as.character(path(parent, "a"))
 
   out_parent <- fs::path_file(path_dir(out))
