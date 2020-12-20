@@ -7,3 +7,4 @@
 ^codecov\.yml$
 ^README_cache$
 ^vignettes/articles$
+^vignettes/family\.Rmd$
