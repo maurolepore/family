@@ -1,0 +1,20 @@
+---
+title: "family"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+Sometimes you need to work with a family of repositories nested one level under a parent repository. Those sibling repositories usually have a number of unrelated neighbour repositories you with to ignore. Using the analogy form real families, the "family" package uses solves this problem with a small number of focused and intuitive tools.
+
+
+```{r setup}
+library(fs)
+library(family)
+```
+
