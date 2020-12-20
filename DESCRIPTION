@@ -10,8 +10,7 @@ Authors@R:
 Description: Find a family of related directories without
     knowing their name.  Find children directories under a parent
     directory, the siblings of any one child, and the parent of all
-    children.  Inspired by the work by Jim Hester (<
-    https://CRAN.R-project.org/package=here>).  directories.
+    children.
 License: MIT + file LICENSE
 URL: https://github.com/maurolepore/family
 BugReports: https://github.com/maurolepore/family/issues
