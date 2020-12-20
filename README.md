@@ -32,19 +32,19 @@ library(fs)
 ```
 
 Here is a collection of related packages (“sister”, “brother”) and one
-unrelated neighbour (“them”), all under the same parent directory
+unrelated neighbor (“them”), all under the same parent directory
 (“mother”).
 
 ``` r
 mother <- path(tempdir(), "mother")
 us <- c("sister", "brother")
-neighbour <- "neighbour"
-dir_create(path(mother, c(us, neighbour)))
+neighbor <- "neighbor"
+dir_create(path(mother, c(us, neighbor)))
 
 dir_tree(mother)
 #> /tmp/Rtmpbqof9n/mother
 #> ├── brother
-#> ├── neighbour
+#> ├── neighbor
 #> └── sister
 ```
 
@@ -60,7 +60,7 @@ dir_tree(mother, recurse = TRUE, all = TRUE)
 #> /tmp/Rtmpbqof9n/mother
 #> ├── brother
 #> │   └── .us
-#> ├── neighbour
+#> ├── neighbor
 #> └── sister
 #>     └── .us
 ```
@@ -75,10 +75,10 @@ family(parent = mother, family = family_name)
 A handful of other functions help you work more comfortably when your
 working directory is set to either the parent directory or one level
 under it. For example, `siblngs()` finds the family from any family
-member or unrelated neighbour.
+member or unrelated neighbor.
 
 ``` r
-setwd(path(mother, "neighbour"))
+setwd(path(mother, "neighbor"))
 siblings(family_name, self = TRUE)
 #> [1] "/tmp/Rtmpbqof9n/mother/brother" "/tmp/Rtmpbqof9n/mother/sister"
 

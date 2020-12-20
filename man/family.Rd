@@ -39,8 +39,8 @@ restore_working_directory <- getwd()
 
 mother <- path(tempdir(), "mother")
 us <- c("sister", "brother")
-neighbour <- "neighbour"
-dir_create(path(mother, c(us, neighbour)))
+neighbor <- "neighbor"
+dir_create(path(mother, c(us, neighbor)))
 
 # Define the family with any identifying file in the root of each sibling
 family_name <- ".us"
@@ -51,8 +51,8 @@ dir_tree(mother, recurse = TRUE, all = TRUE)
 # Find the family from anywhere
 family(parent = mother, family = family_name)
 
-# Find the family from the parent, the siblings or their neighbours
-setwd(path(mother, "neighbour"))
+# Find the family from the parent, the siblings or their neighbors
+setwd(path(mother, "neighbor"))
 siblings(family_name, self = TRUE)
 
 setwd(path(mother, "sister"))
