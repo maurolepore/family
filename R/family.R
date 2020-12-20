@@ -34,25 +34,25 @@
 #' dir_tree(parent)
 #'
 #' # From anywhere
-#' family::family(parent, family = "^[.]smith$")
+#' family(parent, family = "^[.]smith$")
 #'
 #' # You may use convenient helpers form the parent or a child:
 #'
 #' # From the parent
 #' setwd(parent)
-#' family::children("^[.]smith$")
+#' children("^[.]smith$")
 #'
 #' # You may also pass `family` via `options()`
 #' op <- options(family = "^[.]smith$")
 #' on.exit(op, add = TRUE)
 #'
-#' family::children()
+#' children()
 #'
 #' # From a child
 #' setwd(me)
-#' family::siblings()
-#' family::siblings(self = TRUE)
-#' family::parent()
+#' siblings()
+#' siblings(self = TRUE)
+#' parent()
 #'
 #' setwd(wd)
 family <- function(parent, family = getOption("family") %||% "^[.]family") {
