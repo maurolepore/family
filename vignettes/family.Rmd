@@ -9,12 +9,70 @@ knitr::opts_chunk$set(
 )
 ```
 
+Sometimes you need to work with a family of repositories nested one level under
+a parent repository. Those sibling repositories usually have a number of
+unrelated neighbour repositories you with to ignore. Using the analogy form real
+families, the "family" package uses solves this problem with a small number of
+focused and intuitive tools. 
 
-Sometimes you need to work with a family of repositories nested one level under a parent repository. Those sibling repositories usually have a number of unrelated neighbour repositories you with to ignore. Using the analogy form real families, the "family" package uses solves this problem with a small number of focused and intuitive tools.
-
+Here we'll work with a collection of related packages ("sister", "brother", and "me") ignoring one unrelated neighbour ("them"), all under the same parent directory ("mother"). 
 
 ```{r setup}
-library(fs)
 library(family)
+library(fs)
+
+mother <- path(tempdir(), "mother")
+us <- c("sister", "brother", "me")
+dir_create(path(mother, c(us, "neighbour")))
+
+dir_tree(mother)
 ```
 
+To define the family we add an empty file under the root of each sibling. You may name it anything, maybe starting with "." so the file is hidden.
+
+```{r}
+family_name <- ".us"
+file_create(path(mother, us, ".us"))
+
+dir_tree(mother, recurse = TRUE, all = TRUE)
+```
+
+* `family::find_family()` is the most flexible tool to find a family from anywhere.
+
+```{r}
+family::find_family(parent = mother, family = family_name)
+```
+
+A handful of other functions help you work more comfortably when your working directory is set to either the parent directory or one level under it. This assumption makes the interface of the helpers simpler -- they all lack the `parent` argument.
+
+* `children()` finds the family from the parent directory.
+
+```{r}
+setwd(mother)
+
+children(family_name)
+```
+
+* `siblings()` finds the family from a family member or an unrelated neighbour.
+
+```{r}
+setwd(path(mother, "me"))
+
+siblings(family_name)
+
+siblings(family_name, self = TRUE)
+# Same
+setwd(path(mother, "neighbour"))
+siblings(family_name)
+```
+
+You may pass the `family` argument directly or via `options()`. 
+
+```{r}
+setwd(path(mother, "me"))
+options(family = family_name)
+
+siblings()
+```
+
+This saves you a little typing but most importantly allows you to reuse the code with other families.
