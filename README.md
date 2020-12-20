@@ -32,20 +32,14 @@ library(fs)
 ```
 
 Here is a collection of related packages (“sister”, “brother”) and one
-unrelated neighbour (“them”), all under the same parent directory
+unrelated neighbor (“them”), all under the same parent directory
 (“mother”).
 
 ``` r
 mother <- path(tempdir(), "mother")
 us <- c("sister", "brother")
-neighbour <- "neighbour"
-dir_create(path(mother, c(us, neighbour)))
-
-dir_tree(mother)
-#> /tmp/Rtmpbqof9n/mother
-#> ├── brother
-#> ├── neighbour
-#> └── sister
+neighbor <- "neighbor"
+dir_create(path(mother, c(us, neighbor)))
 ```
 
 To define the family we add an empty file under the root of each
@@ -57,10 +51,10 @@ family_name <- ".us"
 file_create(path(mother, us, ".us"))
 
 dir_tree(mother, recurse = TRUE, all = TRUE)
-#> /tmp/Rtmpbqof9n/mother
+#> /tmp/RtmpphBCdq/mother
 #> ├── brother
 #> │   └── .us
-#> ├── neighbour
+#> ├── neighbor
 #> └── sister
 #>     └── .us
 ```
@@ -69,28 +63,28 @@ dir_tree(mother, recurse = TRUE, all = TRUE)
 
 ``` r
 find_family(parent = mother, family = family_name)
-#> [1] "/tmp/Rtmpbqof9n/mother/brother" "/tmp/Rtmpbqof9n/mother/sister"
+#> [1] "/tmp/RtmpphBCdq/mother/brother" "/tmp/RtmpphBCdq/mother/sister"
 ```
 
 A handful of other functions help you work more comfortably when your
 working directory is set to either the parent directory or one level
 under it. For example, `siblngs()` finds the family from any family
-member or unrelated neighbour.
+member or unrelated neighbor.
 
 ``` r
-setwd(path(mother, "neighbour"))
+setwd(path(mother, "neighbor"))
 siblings(family_name, self = TRUE)
-#> [1] "/tmp/Rtmpbqof9n/mother/brother" "/tmp/Rtmpbqof9n/mother/sister"
+#> [1] "/tmp/RtmpphBCdq/mother/brother" "/tmp/RtmpphBCdq/mother/sister"
 
 setwd(path(mother, "sister"))
 siblings(family_name, self = TRUE)
-#> [1] "/tmp/Rtmpbqof9n/mother/brother" "/tmp/Rtmpbqof9n/mother/sister"
+#> [1] "/tmp/RtmpphBCdq/mother/brother" "/tmp/RtmpphBCdq/mother/sister"
 
 siblings(family_name)
-#> [1] "/tmp/Rtmpbqof9n/mother/brother"
+#> [1] "/tmp/RtmpphBCdq/mother/brother"
 
 # Save typing and reuse code with other families
 options(family = family_name)
 siblings()
-#> [1] "/tmp/Rtmpbqof9n/mother/brother"
+#> [1] "/tmp/RtmpphBCdq/mother/brother"
 ```
