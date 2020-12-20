@@ -90,72 +90,55 @@
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://fs.r-lib.org">fs</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/maurolepore/family">family</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/maurolepore/family">family</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://fs.r-lib.org">fs</a></span><span class="op">)</span></code></pre></div>
+<p>Here is a collection of related packages (“sister”, “brother”, and “me”) and one unrelated neighbour (“them”), all under the same parent directory (“mother”).</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mother</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"mother"</span><span class="op">)</span>
+<span class="va">us</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sister"</span>, <span class="st">"brother"</span>, <span class="st">"me"</span><span class="op">)</span>
+<span class="va">neighbour</span> <span class="op">&lt;-</span> <span class="st">"neighbour"</span>
+<span class="fu"><a href="http://fs.r-lib.org/reference/create.html">dir_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">mother</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">us</span>, <span class="va">neighbour</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
-<span class="va">wd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/on.exit.html">on.exit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">wd</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">parent</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"parent"</span><span class="op">)</span>
-
-<span class="va">me</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://fs.r-lib.org/reference/create.html">dir_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">parent</span>, <span class="st">"me"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">sister</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://fs.r-lib.org/reference/create.html">dir_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">parent</span>, <span class="st">"sister"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">brother</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://fs.r-lib.org/reference/create.html">dir_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">parent</span>, <span class="st">"brother"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># To define the family, say 'smith', add a file '.smith' to each child directory</span>
-<span class="fu"><a href="http://fs.r-lib.org/reference/create.html">file_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">me</span>, <span class="st">".smith"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="http://fs.r-lib.org/reference/create.html">file_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">sister</span>, <span class="st">".smith"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="http://fs.r-lib.org/reference/create.html">file_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">brother</span>, <span class="st">".smith"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Other directories will be ignored</span>
-<span class="va">neighbour</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://fs.r-lib.org/reference/create.html">dir_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">parent</span>, <span class="st">"neighbour"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span><span class="op">(</span><span class="va">parent</span><span class="op">)</span>
-<span class="co">#&gt; /tmp/RtmpQCpCwG/parent</span>
+<span class="fu"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span><span class="op">(</span><span class="va">mother</span><span class="op">)</span>
+<span class="co">#&gt; /tmp/Rtmp1fMF2i/mother</span>
 <span class="co">#&gt; ├── brother</span>
 <span class="co">#&gt; ├── me</span>
 <span class="co">#&gt; ├── neighbour</span>
+<span class="co">#&gt; └── sister</span></code></pre></div>
+<p>To define the family we add an empty file under the root of each sibling. You may name it anything, maybe starting with “.” so the file is hidden.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">family_name</span> <span class="op">&lt;-</span> <span class="st">".us"</span>
+<span class="fu"><a href="http://fs.r-lib.org/reference/create.html">file_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">mother</span>, <span class="va">us</span>, <span class="st">".us"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span><span class="op">(</span><span class="va">mother</span>, recurse <span class="op">=</span> <span class="cn">TRUE</span>, all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; /tmp/Rtmp1fMF2i/mother</span>
+<span class="co">#&gt; ├── brother</span>
+<span class="co">#&gt; │   └── .us</span>
+<span class="co">#&gt; ├── me</span>
+<span class="co">#&gt; │   └── .us</span>
+<span class="co">#&gt; ├── neighbour</span>
 <span class="co">#&gt; └── sister</span>
+<span class="co">#&gt;     └── .us</span></code></pre></div>
+<p><code><a href="reference/find_family.html">find_family()</a></code> finds the family from anywhere.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">family</span><span class="fu">::</span><span class="fu"><a href="reference/find_family.html">find_family</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="va">mother</span>, family <span class="op">=</span> <span class="va">family_name</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/tmp/Rtmp1fMF2i/mother/brother" "/tmp/Rtmp1fMF2i/mother/me"     </span>
+<span class="co">#&gt; [3] "/tmp/Rtmp1fMF2i/mother/sister"</span></code></pre></div>
+<p>A handful of other functions help you work more comfortably when your working directory is set to either the parent directory or one level under it. For example, <code>siblngs()</code> finds the family from any directory on level under the parent directory.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">mother</span>, <span class="st">"me"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="co"># From anywhere</span>
-<span class="fu">family</span><span class="fu">::</span><span class="fu"><a href="reference/find_family.html">find_family</a></span><span class="op">(</span><span class="va">parent</span>, family <span class="op">=</span> <span class="st">"^[.]smith$"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     </span>
-<span class="co">#&gt; [3] "/tmp/RtmpQCpCwG/parent/sister"</span>
+<span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="va">family_name</span>, self <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/tmp/Rtmp1fMF2i/mother/brother" "/tmp/Rtmp1fMF2i/mother/me"     </span>
+<span class="co">#&gt; [3] "/tmp/Rtmp1fMF2i/mother/sister"</span>
 
-<span class="co"># You may use convenient helpers form the parent or a child:</span>
+<span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="va">family_name</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/tmp/Rtmp1fMF2i/mother/brother" "/tmp/Rtmp1fMF2i/mother/sister"</span>
 
-<span class="co"># From the parent</span>
-<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">parent</span><span class="op">)</span>
-<span class="fu">family</span><span class="fu">::</span><span class="fu"><a href="reference/find_family.html">children</a></span><span class="op">(</span><span class="st">"^[.]smith$"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     </span>
-<span class="co">#&gt; [3] "/tmp/RtmpQCpCwG/parent/sister"</span>
-
-<span class="co"># You may pass `family` via `options()`</span>
-<span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"^[.]smith$"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/on.exit.html">on.exit</a></span><span class="op">(</span><span class="va">op</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">family</span><span class="fu">::</span><span class="fu"><a href="reference/find_family.html">children</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     </span>
-<span class="co">#&gt; [3] "/tmp/RtmpQCpCwG/parent/sister"</span>
-
-<span class="co"># From a child</span>
-<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">me</span><span class="op">)</span>
-<span class="fu">family</span><span class="fu">::</span><span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/sister"</span>
-<span class="fu">family</span><span class="fu">::</span><span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span>self <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     </span>
-<span class="co">#&gt; [3] "/tmp/RtmpQCpCwG/parent/sister"</span>
-<span class="fu">family</span><span class="fu">::</span><span class="fu"><a href="reference/find_family.html">parent</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpQCpCwG/parent"</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="va">wd</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="related-projects" class="section level2">
-<h2 class="hasAnchor">
-<a href="#related-projects" class="anchor"></a>Related projects</h2>
-<ul>
-<li>Inspired by the package <a href="https://github.com/r-lib/here">here</a>.</li>
-</ul>
+<span class="co"># Save typing and reuse your code with other families</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>family <span class="op">=</span> <span class="va">family_name</span><span class="op">)</span>
+<span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/tmp/Rtmp1fMF2i/mother/brother" "/tmp/Rtmp1fMF2i/mother/sister"</span></code></pre></div>
 </div>
 </div>
   </div>
