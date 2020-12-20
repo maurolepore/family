@@ -35,45 +35,41 @@ Find directories of a family
 library(fs)
 library(family)
 
-wd <- getwd()
-on.exit(setwd(wd))
+restore_working_directory <- getwd()
 
-parent <- path(tempdir(), "parent")
+mother <- path(tempdir(), "mother")
+us <- c("sister", "brother")
+neighbour <- "neighbour"
+dir_create(path(mother, c(us, neighbour)))
 
-me <- dir_create(path(parent, "me"))
-sister <- dir_create(path(parent, "sister"))
-brother <- dir_create(path(parent, "brother"))
+# Define the family with any identifying file in the root of each sibling
+family_name <- ".us"
+file_create(path(mother, us, ".us"))
 
-# To define the family, say 'smith', add a file '.smith' to each child directory
-file_create(path(me, ".smith"))
-file_create(path(sister, ".smith"))
-file_create(path(brother, ".smith"))
+dir_tree(mother, recurse = TRUE, all = TRUE)
 
-# Other directories will be ignored
-neighbour <- dir_create(path(parent, "neighbour"))
+# Find the family from anywhere
+family(parent = mother, family = family_name)
 
-dir_tree(parent)
+# Find the family from the parent, the siblings or their neighbours
+setwd(path(mother, "neighbour"))
+siblings(family_name, self = TRUE)
 
-# From anywhere
-family(parent, family = "^[.]smith$")
+setwd(path(mother, "sister"))
+siblings(family_name, self = TRUE)
 
-# You may use convenient helpers form the parent or a child:
+siblings(family_name)
 
-# From the parent
-setwd(parent)
-children("^[.]smith$")
-
-# You may also pass `family` via `options()`
-op <- options(family = "^[.]smith$")
-on.exit(op, add = TRUE)
-
-children()
-
-# From a child
-setwd(me)
+# Save typing and reuse code with other families
+restore_options <- options(family = family_name)
 siblings()
-siblings(self = TRUE)
+
 parent()
 
-setwd(wd)
+setwd(parent())
+children()
+
+# Cleanup
+options(restore_options)
+setwd(restore_working_directory)
 }
