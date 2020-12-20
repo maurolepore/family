@@ -36,52 +36,46 @@ devtools::install_github("maurolepore/family")
 ## Example
 
 ```{r}
-library(fs)
 library(family)
-
-wd <- getwd()
-on.exit(setwd(wd))
-
-parent <- path(tempdir(), "parent")
-
-me <- dir_create(path(parent, "me"))
-sister <- dir_create(path(parent, "sister"))
-brother <- dir_create(path(parent, "brother"))
-
-# To define the family, say 'smith', add a file '.smith' to each child directory
-file_create(path(me, ".smith"))
-file_create(path(sister, ".smith"))
-file_create(path(brother, ".smith"))
-
-# Other directories will be ignored
-neighbour <- dir_create(path(parent, "neighbour"))
-
-dir_tree(parent)
-
-# From anywhere
-family::find_family(parent, family = "^[.]smith$")
-
-# You may use convenient helpers form the parent or a child:
-
-# From the parent
-setwd(parent)
-family::children("^[.]smith$")
-
-# You may pass `family` via `options()`
-op <- options(family = "^[.]smith$")
-on.exit(op, add = TRUE)
-
-family::children()
-
-# From a child
-setwd(me)
-family::siblings()
-family::siblings(self = TRUE)
-family::parent()
-
-setwd(wd)
+library(fs)
 ```
 
-## Related projects
+Here is a collection of related packages ("sister", "brother", and "me") and one unrelated neighbour ("them"), all under the same parent directory ("mother"). 
 
-* Inspired by the package [here](https://github.com/r-lib/here).
+```{r setup}
+mother <- path(tempdir(), "mother")
+us <- c("sister", "brother", "me")
+neighbour <- "neighbour"
+dir_create(path(mother, c(us, neighbour)))
+
+dir_tree(mother)
+```
+
+To define the family we add an empty file under the root of each sibling. You may name it anything, maybe starting with "." so the file is hidden.
+
+```{r}
+family_name <- ".us"
+file_create(path(mother, us, ".us"))
+
+dir_tree(mother, recurse = TRUE, all = TRUE)
+```
+
+`find_family()` finds the family from anywhere.
+
+```{r}
+family::find_family(parent = mother, family = family_name)
+```
+
+A handful of other functions help you work more comfortably when your working directory is set to either the parent directory or one level under it. For example, `siblngs()` finds the family from any directory on level under the parent directory.
+
+```{r}
+setwd(path(mother, "me"))
+
+siblings(family_name, self = TRUE)
+
+siblings(family_name)
+
+# Save typing and reuse your code with other families
+options(family = family_name)
+siblings()
+```

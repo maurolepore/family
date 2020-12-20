@@ -27,67 +27,72 @@ devtools::install_github("maurolepore/family")
 ## Example
 
 ``` r
-library(fs)
 library(family)
+library(fs)
+```
 
-wd <- getwd()
-on.exit(setwd(wd))
+Here is a collection of related packages (“sister”, “brother”, and “me”)
+and one unrelated neighbour (“them”), all under the same parent
+directory (“mother”).
 
-parent <- path(tempdir(), "parent")
+``` r
+mother <- path(tempdir(), "mother")
+us <- c("sister", "brother", "me")
+neighbour <- "neighbour"
+dir_create(path(mother, c(us, neighbour)))
 
-me <- dir_create(path(parent, "me"))
-sister <- dir_create(path(parent, "sister"))
-brother <- dir_create(path(parent, "brother"))
-
-# To define the family, say 'smith', add a file '.smith' to each child directory
-file_create(path(me, ".smith"))
-file_create(path(sister, ".smith"))
-file_create(path(brother, ".smith"))
-
-# Other directories will be ignored
-neighbour <- dir_create(path(parent, "neighbour"))
-
-dir_tree(parent)
-#> /tmp/RtmpQCpCwG/parent
+dir_tree(mother)
+#> /tmp/Rtmp1fMF2i/mother
 #> ├── brother
 #> ├── me
 #> ├── neighbour
 #> └── sister
-
-# From anywhere
-family::find_family(parent, family = "^[.]smith$")
-#> [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     
-#> [3] "/tmp/RtmpQCpCwG/parent/sister"
-
-# You may use convenient helpers form the parent or a child:
-
-# From the parent
-setwd(parent)
-family::children("^[.]smith$")
-#> [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     
-#> [3] "/tmp/RtmpQCpCwG/parent/sister"
-
-# You may pass `family` via `options()`
-op <- options(family = "^[.]smith$")
-on.exit(op, add = TRUE)
-
-family::children()
-#> [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     
-#> [3] "/tmp/RtmpQCpCwG/parent/sister"
-
-# From a child
-setwd(me)
-family::siblings()
-#> [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/sister"
-family::siblings(self = TRUE)
-#> [1] "/tmp/RtmpQCpCwG/parent/brother" "/tmp/RtmpQCpCwG/parent/me"     
-#> [3] "/tmp/RtmpQCpCwG/parent/sister"
-family::parent()
-#> [1] "/tmp/RtmpQCpCwG/parent"
-
-setwd(wd)
 ```
 
-## Related projects
+To define the family we add an empty file under the root of each
+sibling. You may name it anything, maybe starting with “.” so the file
+is hidden.
 
--   Inspired by the package [here](https://github.com/r-lib/here).
+``` r
+family_name <- ".us"
+file_create(path(mother, us, ".us"))
+
+dir_tree(mother, recurse = TRUE, all = TRUE)
+#> /tmp/Rtmp1fMF2i/mother
+#> ├── brother
+#> │   └── .us
+#> ├── me
+#> │   └── .us
+#> ├── neighbour
+#> └── sister
+#>     └── .us
+```
+
+`find_family()` finds the family from anywhere.
+
+``` r
+family::find_family(parent = mother, family = family_name)
+#> [1] "/tmp/Rtmp1fMF2i/mother/brother" "/tmp/Rtmp1fMF2i/mother/me"     
+#> [3] "/tmp/Rtmp1fMF2i/mother/sister"
+```
+
+A handful of other functions help you work more comfortably when your
+working directory is set to either the parent directory or one level
+under it. For example, `siblngs()` finds the family from any directory
+on level under the parent directory.
+
+``` r
+setwd(path(mother, "me"))
+
+siblings(family_name, self = TRUE)
+#> [1] "/tmp/Rtmp1fMF2i/mother/brother" "/tmp/Rtmp1fMF2i/mother/me"     
+#> [3] "/tmp/Rtmp1fMF2i/mother/sister"
+
+siblings(family_name)
+#> [1] "/tmp/Rtmp1fMF2i/mother/brother" "/tmp/Rtmp1fMF2i/mother/sister"
+
+# Save typing and reuse your code with other families
+options(family = family_name)
+siblings()
+#> [1] "/tmp/Rtmp1fMF2i/mother/brother" "/tmp/Rtmp1fMF2i/mother/sister"
+```
