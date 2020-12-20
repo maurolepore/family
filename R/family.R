@@ -28,7 +28,7 @@
 #' dir_tree(mother, recurse = TRUE, all = TRUE)
 #'
 #' # Find the family from anywhere
-#' family(parent = mother, family = family_name)
+#' find_family(parent = mother, family = family_name)
 #'
 #' # Find the family from the parent, the siblings or their neighbors
 #' setwd(path(mother, "neighbor"))
@@ -51,7 +51,7 @@
 #' # Cleanup
 #' options(restore_options)
 #' setwd(restore_working_directory)
-family <- function(parent, family = getOption("family") %||% "^[.]family") {
+find_family <- function(parent, family = getOption("family") %||% "^[.]family") {
   if (!identical(length(parent), 1L)) {
     stop("`parent` must be of length 1", call. = FALSE)
   }
@@ -78,23 +78,23 @@ detect_file <- function(paths, file) {
 }
 
 #' @export
-#' @rdname family
+#' @rdname find_family
 parent <- function(family = getOption("family") %||% "^[.]family") {
-  children <- family("..", family)
+  children <- find_family("..", family)
   unique(path_dir(children))
 }
 
 #' @export
-#' @rdname family
+#' @rdname find_family
 children <- function(family = getOption("family") %||% "^[.]family") {
-  family(".", family)
+  find_family(".", family)
 }
 
 #' @export
-#' @rdname family
+#' @rdname find_family
 siblings <- function(family = getOption("family") %||% "^[.]family",
                      self = FALSE) {
-  children <- family("..", family)
+  children <- find_family("..", family)
   if (self) {
     return(children)
   }

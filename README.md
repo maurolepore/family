@@ -28,6 +28,11 @@ devtools::install_github("maurolepore/family")
 
 ``` r
 library(family)
+#> 
+#> Attaching package: 'family'
+#> The following object is masked from 'package:stats':
+#> 
+#>     family
 library(fs)
 ```
 
@@ -40,12 +45,6 @@ mother <- path(tempdir(), "mother")
 us <- c("sister", "brother")
 neighbor <- "neighbor"
 dir_create(path(mother, c(us, neighbor)))
-
-dir_tree(mother)
-#> /tmp/Rtmpbqof9n/mother
-#> ├── brother
-#> ├── neighbor
-#> └── sister
 ```
 
 To define the family we add an empty file under the root of each
@@ -57,7 +56,7 @@ family_name <- ".us"
 file_create(path(mother, us, ".us"))
 
 dir_tree(mother, recurse = TRUE, all = TRUE)
-#> /tmp/Rtmpbqof9n/mother
+#> /tmp/RtmpegwtQ2/mother
 #> ├── brother
 #> │   └── .us
 #> ├── neighbor
@@ -65,11 +64,11 @@ dir_tree(mother, recurse = TRUE, all = TRUE)
 #>     └── .us
 ```
 
-`family()` finds the family from anywhere.
+`find_family()` finds the family from anywhere.
 
 ``` r
-family(parent = mother, family = family_name)
-#> [1] "/tmp/Rtmpbqof9n/mother/brother" "/tmp/Rtmpbqof9n/mother/sister"
+find_family(parent = mother, family = family_name)
+#> [1] "/tmp/RtmpegwtQ2/mother/brother" "/tmp/RtmpegwtQ2/mother/sister"
 ```
 
 A handful of other functions help you work more comfortably when your
@@ -80,17 +79,17 @@ member or unrelated neighbor.
 ``` r
 setwd(path(mother, "neighbor"))
 siblings(family_name, self = TRUE)
-#> [1] "/tmp/Rtmpbqof9n/mother/brother" "/tmp/Rtmpbqof9n/mother/sister"
+#> [1] "/tmp/RtmpegwtQ2/mother/brother" "/tmp/RtmpegwtQ2/mother/sister"
 
 setwd(path(mother, "sister"))
 siblings(family_name, self = TRUE)
-#> [1] "/tmp/Rtmpbqof9n/mother/brother" "/tmp/Rtmpbqof9n/mother/sister"
+#> [1] "/tmp/RtmpegwtQ2/mother/brother" "/tmp/RtmpegwtQ2/mother/sister"
 
 siblings(family_name)
-#> [1] "/tmp/Rtmpbqof9n/mother/brother"
+#> [1] "/tmp/RtmpegwtQ2/mother/brother"
 
 # Save typing and reuse code with other families
 options(family = family_name)
 siblings()
-#> [1] "/tmp/Rtmpbqof9n/mother/brother"
+#> [1] "/tmp/RtmpegwtQ2/mother/brother"
 ```

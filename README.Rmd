@@ -47,8 +47,6 @@ mother <- path(tempdir(), "mother")
 us <- c("sister", "brother")
 neighbor <- "neighbor"
 dir_create(path(mother, c(us, neighbor)))
-
-dir_tree(mother)
 ```
 
 To define the family we add an empty file under the root of each sibling. You may name it anything, maybe starting with "." so the file is hidden.
@@ -60,10 +58,10 @@ file_create(path(mother, us, ".us"))
 dir_tree(mother, recurse = TRUE, all = TRUE)
 ```
 
-`family()` finds the family from anywhere.
+`find_family()` finds the family from anywhere.
 
 ```{r}
-family(parent = mother, family = family_name)
+find_family(parent = mother, family = family_name)
 ```
 
 A handful of other functions help you work more comfortably when your working directory is set to either the parent directory or one level under it. For example, `siblngs()` finds the family from any family member or unrelated neighbor.
