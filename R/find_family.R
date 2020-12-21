@@ -53,6 +53,7 @@
 #' setwd(restore_working_directory)
 find_family <- function(parent, family = getOption("family") %||% "^[.]family") {
   stop_if_too_long(parent)
+  if (is.null(family)) stop("`family` can't be NULL.")
 
   candidates <- find_candidates(parent, family)
   children <- pick_children(candidates, family)
