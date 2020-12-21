@@ -95,19 +95,11 @@ list_all_dirs <- function(parent, type = "any") {
   fs::dir_ls(fs::path_abs(parent), all = TRUE, type = type)
 }
 
-working_from_granchild <- function(parent, family) {
-  fs::file_exists(path(parent, family))
-}
-
 pick_children <- function(paths, family) {
   is_family <- grepl(family, path_file(paths))
   child_files <- paths[is_family]
   child_dirs <- sort(path_dir(child_files))
   child_dirs
-}
-
-detect_file <- function(paths, family) {
-  grepl(family, path_file(paths))
 }
 
 #' @export
