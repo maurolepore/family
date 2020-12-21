@@ -44,9 +44,9 @@ Here is a collection of related packages ("sister", "brother") and one unrelated
 
 ```{r setup}
 mother <- path(tempdir(), "mother")
-us <- c("sister", "brother")
+siblings <- c("sister", "brother")
 neighbour <- "neighbour"
-dir_create(path(mother, c(us, neighbour)))
+dir_create(path(mother, c(siblings, neighbour)))
 ```
 
 To define the family we add an empty file under the root of each sibling. You may name it anything, maybe starting with "." so the file is hidden.
@@ -54,7 +54,7 @@ To define the family we add an empty file under the root of each sibling. You ma
 ```{r}
 family_name <- ".us"
 family_regexp <- "^[.]us$"
-file_create(path(mother, us, family_name))
+file_create(path(mother, siblings, family_name))
 
 dir_tree(mother, recurse = TRUE, all = TRUE)
 ```

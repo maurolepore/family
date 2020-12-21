@@ -37,9 +37,9 @@ unrelated neighbour (“them”), all under the same parent directory
 
 ``` r
 mother <- path(tempdir(), "mother")
-us <- c("sister", "brother")
+siblings <- c("sister", "brother")
 neighbour <- "neighbour"
-dir_create(path(mother, c(us, neighbour)))
+dir_create(path(mother, c(siblings, neighbour)))
 ```
 
 To define the family we add an empty file under the root of each
@@ -49,10 +49,10 @@ is hidden.
 ``` r
 family_name <- ".us"
 family_regexp <- "^[.]us$"
-file_create(path(mother, us, family_name))
+file_create(path(mother, siblings, family_name))
 
 dir_tree(mother, recurse = TRUE, all = TRUE)
-#> /tmp/Rtmpg1fiYf/mother
+#> /tmp/RtmpYYiJt1/mother
 #> ├── brother
 #> │   └── .us
 #> ├── neighbour
@@ -64,7 +64,7 @@ dir_tree(mother, recurse = TRUE, all = TRUE)
 
 ``` r
 find_family(parent = mother, regexp = family_regexp)
-#> [1] "/tmp/Rtmpg1fiYf/mother/brother" "/tmp/Rtmpg1fiYf/mother/sister"
+#> [1] "/tmp/RtmpYYiJt1/mother/brother" "/tmp/RtmpYYiJt1/mother/sister"
 ```
 
 A handful of other functions help you work more comfortably when your
@@ -75,17 +75,17 @@ member or unrelated neighbour.
 ``` r
 setwd(path(mother, "neighbour"))
 siblings(family_regexp, self = TRUE)
-#> [1] "/tmp/Rtmpg1fiYf/mother/brother" "/tmp/Rtmpg1fiYf/mother/sister"
+#> [1] "/tmp/RtmpYYiJt1/mother/brother" "/tmp/RtmpYYiJt1/mother/sister"
 
 setwd(path(mother, "sister"))
 siblings(family_regexp, self = TRUE)
-#> [1] "/tmp/Rtmpg1fiYf/mother/brother" "/tmp/Rtmpg1fiYf/mother/sister"
+#> [1] "/tmp/RtmpYYiJt1/mother/brother" "/tmp/RtmpYYiJt1/mother/sister"
 
 siblings(family_regexp)
-#> [1] "/tmp/Rtmpg1fiYf/mother/brother"
+#> [1] "/tmp/RtmpYYiJt1/mother/brother"
 
 # Save typing and reuse code with other families
 options(family.regexp = family_regexp)
 siblings()
-#> [1] "/tmp/Rtmpg1fiYf/mother/brother"
+#> [1] "/tmp/RtmpYYiJt1/mother/brother"
 ```
