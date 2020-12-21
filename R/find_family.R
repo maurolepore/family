@@ -52,15 +52,8 @@
 #' options(restore_options)
 #' setwd(restore_working_directory)
 find_family <- function(parent, family = NULL) {
-  stop_if_too_long(parent)
   family <- family %||% getOption("family")
-  if (is.null(family)) {
-    stop(
-      "`family` must be provided.\n",
-      "Did you forget to pass it (via `options()` or directly)?",
-      call. = FALSE
-    )
-  }
+  check_find_family(parent, family)
 
   candidates <- find_candidates(parent, family)
   children <- pick_children(candidates, family)
@@ -69,6 +62,19 @@ find_family <- function(parent, family = NULL) {
 
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
+}
+
+check_find_family <- function(parent, family) {
+  stop_if_too_long(parent)
+  if (is.null(family)) {
+    stop(
+      "`family` must be provided.\n",
+      "Did you forget to pass it (via `options()` or directly)?",
+      call. = FALSE
+    )
+  }
+
+  invisible(parent)
 }
 
 stop_if_too_long <- function(parent) {
