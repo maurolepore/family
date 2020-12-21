@@ -12,7 +12,7 @@ test_that("with too-long `parent` errors gracefully", {
 
 test_that("with parent path finds siblings", {
   parent <- withr::local_tempdir()
-  family = ".us"
+  family <- ".us"
 
   siblings <- c("a", "b")
   create_file_in_child(parent, siblings, family = family)
@@ -136,4 +136,3 @@ test_that("siblings() with family defined in options(), finds parent", {
   withr::local_options(list(family = ".us"))
   expect_equal(path_file(siblings()), "b")
 })
-
