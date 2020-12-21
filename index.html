@@ -101,10 +101,11 @@
 <p>To define the family we add an empty file under the root of each sibling. You may name it anything, maybe starting with “.” so the file is hidden.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">family_name</span> <span class="op">&lt;-</span> <span class="st">".us"</span>
-<span class="fu"><a href="http://fs.r-lib.org/reference/create.html">file_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">mother</span>, <span class="va">us</span>, <span class="st">".us"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">family_regexp</span> <span class="op">&lt;-</span> <span class="st">"^[.]us$"</span>
+<span class="fu"><a href="http://fs.r-lib.org/reference/create.html">file_create</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">mother</span>, <span class="va">us</span>, <span class="va">family_name</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="http://fs.r-lib.org/reference/dir_tree.html">dir_tree</a></span><span class="op">(</span><span class="va">mother</span>, recurse <span class="op">=</span> <span class="cn">TRUE</span>, all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; /tmp/RtmpD89E3v/mother</span>
+<span class="co">#&gt; /tmp/Rtmpg1fiYf/mother</span>
 <span class="co">#&gt; ├── brother</span>
 <span class="co">#&gt; │   └── .us</span>
 <span class="co">#&gt; ├── neighbour</span>
@@ -112,25 +113,25 @@
 <span class="co">#&gt;     └── .us</span></code></pre></div>
 <p><code><a href="reference/find_family.html">find_family()</a></code> finds the family from anywhere.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/find_family.html">find_family</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="va">mother</span>, family <span class="op">=</span> <span class="va">family_name</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpD89E3v/mother/brother" "/tmp/RtmpD89E3v/mother/sister"</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/find_family.html">find_family</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="va">mother</span>, regexp <span class="op">=</span> <span class="va">family_regexp</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/tmp/Rtmpg1fiYf/mother/brother" "/tmp/Rtmpg1fiYf/mother/sister"</span></code></pre></div>
 <p>A handful of other functions help you work more comfortably when your working directory is set to either the parent directory or one level under it. For example, <code>siblngs()</code> finds the family from any family member or unrelated neighbour.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">mother</span>, <span class="st">"neighbour"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="va">family_name</span>, self <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpD89E3v/mother/brother" "/tmp/RtmpD89E3v/mother/sister"</span>
+<span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="va">family_regexp</span>, self <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/tmp/Rtmpg1fiYf/mother/brother" "/tmp/Rtmpg1fiYf/mother/sister"</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="fu"><a href="http://fs.r-lib.org/reference/path.html">path</a></span><span class="op">(</span><span class="va">mother</span>, <span class="st">"sister"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="va">family_name</span>, self <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpD89E3v/mother/brother" "/tmp/RtmpD89E3v/mother/sister"</span>
+<span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="va">family_regexp</span>, self <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/tmp/Rtmpg1fiYf/mother/brother" "/tmp/Rtmpg1fiYf/mother/sister"</span>
 
-<span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="va">family_name</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpD89E3v/mother/brother"</span>
+<span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="va">family_regexp</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/tmp/Rtmpg1fiYf/mother/brother"</span>
 
 <span class="co"># Save typing and reuse code with other families</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>family <span class="op">=</span> <span class="va">family_name</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>family.regexp <span class="op">=</span> <span class="va">family_regexp</span><span class="op">)</span>
 <span class="fu"><a href="reference/find_family.html">siblings</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/tmp/RtmpD89E3v/mother/brother"</span></code></pre></div>
+<span class="co">#&gt; [1] "/tmp/Rtmpg1fiYf/mother/brother"</span></code></pre></div>
 </div>
 </div>
   </div>
