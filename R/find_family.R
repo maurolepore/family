@@ -57,7 +57,7 @@ find_family <- function(parent, family = NULL) {
   check_find_family(parent, family)
 
   candidates <- find_candidates(parent, family)
-  children <- pick_children(candidates, family)
+  children <- unique(pick_children(candidates, family))
   children
 }
 
