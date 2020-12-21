@@ -3,7 +3,8 @@
 #' @param parent A string giving a single path to the parent directory. The
 #'   children directories should be nested one level under it.
 #' @param family A regular expression to match the name of the file that defines
-#'   the family.
+#'   the family. You may pass it directly of with "options()", e.g.
+#'   `options(family = ".us")`.
 #' @param self Include the working directory in the output? Yes: `TRUE`; No:
 #'   `FALSE`.
 #'
