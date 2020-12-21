@@ -22,15 +22,16 @@ library(family)
 library(fs)
 
 mother <- path(tempdir(), "mother")
-us <- c("sister", "brother")
-dir_create(path(mother, c(us, "neighbour")))
+siblings <- c("sister", "brother")
+dir_create(path(mother, c(siblings, "neighbour")))
 ```
 
 To define the family we add an empty file under the root of each sibling. You may name it anything, maybe starting with "." so the file is hidden.
 
 ```{r}
 family_name <- ".us"
-file_create(path(mother, us, ".us"))
+family_regexp <- "^[.]us$"
+file_create(path(mother, siblings, family_name))
 
 dir_tree(mother, recurse = TRUE, all = TRUE)
 ```
@@ -38,7 +39,7 @@ dir_tree(mother, recurse = TRUE, all = TRUE)
 * `find_family()` is the most flexible tool to find a family from anywhere.
 
 ```{r}
-find_family(parent = mother, family = family_name)
+find_family(parent = mother, regexp = family_regexp)
 ```
 
 A handful of other functions help you work more comfortably when your working directory is set to either the parent directory or one level under it. This assumption makes the interface of the helpers simpler -- they all lack the `parent` argument.
@@ -48,7 +49,7 @@ A handful of other functions help you work more comfortably when your working di
 ```{r}
 setwd(mother)
 
-children(family_name)
+children(family_regexp)
 ```
 
 * `siblings()` finds the family from a family member or an unrelated neighbour.
@@ -56,19 +57,19 @@ children(family_name)
 ```{r}
 setwd(path(mother, "sister"))
 
-siblings(family_name)
+siblings(family_regexp)
 
-siblings(family_name, self = TRUE)
+siblings(family_regexp, self = TRUE)
 # Same
 setwd(path(mother, "neighbour"))
-siblings(family_name)
+siblings(family_regexp)
 ```
 
 You may pass the `family` argument directly or via `options()`. 
 
 ```{r}
 setwd(path(mother, "sister"))
-options(family = family_name)
+options(family.regexp = family_regexp)
 
 siblings()
 siblings(self = TRUE)

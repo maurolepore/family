@@ -7,21 +7,21 @@
 \alias{siblings}
 \title{Find directories of a family}
 \usage{
-find_family(parent, family = NULL)
+find_family(parent, regexp = NULL)
 
-parent(family = NULL)
+parent(regexp = NULL)
 
-children(family = NULL)
+children(regexp = NULL)
 
-siblings(family = NULL, self = FALSE)
+siblings(regexp = NULL, self = FALSE)
 }
 \arguments{
 \item{parent}{A string giving a single path to the parent directory. The
 children directories should be nested one level under it.}
 
-\item{family}{A regular expression to match the name of the file that defines
+\item{regexp}{A regular expression to match the name of the file that defines
 the family. You may pass it directly of with "options()", e.g.
-\code{options(family = ".us")}.}
+\code{options(family.regexp = "^[.]us$")}.}
 
 \item{self}{Include the working directory in the output? Yes: \code{TRUE}; No:
 \code{FALSE}.}
@@ -39,30 +39,31 @@ library(family)
 restore_working_directory <- getwd()
 
 mother <- path(tempdir(), "mother")
-us <- c("sister", "brother")
+siblings <- c("sister", "brother")
 neighbour <- "neighbour"
-dir_create(path(mother, c(us, neighbour)))
+dir_create(path(mother, c(siblings, neighbour)))
 
 # Define the family with any identifying file in the root of each sibling
 family_name <- ".us"
-file_create(path(mother, us, ".us"))
+family_regexp <- "^[.]us$"
+file_create(path(mother, siblings, family_name))
 
 dir_tree(mother, recurse = TRUE, all = TRUE)
 
 # Find the family from anywhere
-find_family(parent = mother, family = family_name)
+find_family(parent = mother, regexp = family_regexp)
 
 # Find the family from the parent, the siblings or their neighbours
 setwd(path(mother, "neighbour"))
-siblings(family_name, self = TRUE)
+siblings(family_regexp, self = TRUE)
 
 setwd(path(mother, "sister"))
-siblings(family_name, self = TRUE)
+siblings(family_regexp, self = TRUE)
 
-siblings(family_name)
+siblings(family_regexp)
 
 # Save typing and reuse code with other families
-restore_options <- options(family = family_name)
+restore_options <- options(family.regexp = family_regexp)
 siblings()
 
 parent()
