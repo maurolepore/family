@@ -54,7 +54,13 @@
 find_family <- function(parent, family = NULL) {
   stop_if_too_long(parent)
   family <- family %||% getOption("family")
-  if (is.null(family)) stop("`family` can't be NULL.")
+  if (is.null(family)) {
+    stop(
+      "`family` must be provided.\n",
+      "Did you forget to pass it (via `options()` or directly)?",
+      call. = FALSE
+    )
+  }
 
   candidates <- find_candidates(parent, family)
   children <- pick_children(candidates, family)
