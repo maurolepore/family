@@ -1,5 +1,5 @@
 test_that("with too-long `parent` errors gracefully", {
-  expect_error(find_family(parent = "."), "can't.*NULL")
+  expect_error(find_family(parent = "."), "must.*provide")
 })
 
 test_that("with too-long `parent` errors gracefully", {
