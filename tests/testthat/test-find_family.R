@@ -18,10 +18,10 @@ test_that("with parent path finds siblings", {
 
 test_that("with family defined via options(), finds siblings", {
   parent <- withr::local_tempdir()
-  create_file_in_child(parent, child = "a", family = ".smith")
+  create_file_in_child(parent, child = "a", family = ".us")
   withr::local_dir(parent)
 
-  withr::local_options(list(family = ".smith"))
+  withr::local_options(list(family = ".us"))
   expect_equal(path_file(find_family(".")), "a")
 })
 
@@ -64,11 +64,11 @@ test_that("children() from parent finds children", {
 
 test_that("children() with family defined in options(), finds parent", {
   parent <- withr::local_tempdir()
-  create_file_in_child(parent, child = "a", family = ".smith")
-  create_file_in_child(parent, child = "b", family = ".smith")
+  create_file_in_child(parent, child = "a", family = ".us")
+  create_file_in_child(parent, child = "b", family = ".us")
 
   withr::local_dir(parent)
-  withr::local_options(list(family = ".smith"))
+  withr::local_options(list(family = ".us"))
   expect_equal(path_file(children()), c("a", "b"))
 })
 
@@ -83,11 +83,11 @@ test_that("parent() from child finds parent", {
 
 test_that("parent() with family defined in options(), finds parent", {
   parent <- withr::local_tempdir()
-  create_file_in_child(parent, child = "a", family = ".smith")
-  create_file_in_child(parent, child = "b", family = ".smith")
+  create_file_in_child(parent, child = "a", family = ".us")
+  create_file_in_child(parent, child = "b", family = ".us")
 
   withr::local_dir(path(parent, "a"))
-  withr::local_options(list(family = ".smith"))
+  withr::local_options(list(family = ".us"))
   expect_equal(path_file(parent()), path_file(parent))
 })
 
@@ -111,10 +111,19 @@ test_that("siblings() is sensitive to self", {
 
 test_that("siblings() with family defined in options(), finds parent", {
   parent <- withr::local_tempdir()
-  create_file_in_child(parent, child = "a", family = ".smith")
-  create_file_in_child(parent, child = "b", family = ".smith")
+  create_file_in_child(parent, child = "a", family = ".us")
+  create_file_in_child(parent, child = "b", family = ".us")
 
   withr::local_dir(path(parent, "a"))
-  withr::local_options(list(family = ".smith"))
+  withr::local_options(list(family = ".us"))
   expect_equal(path_file(siblings()), "b")
+})
+
+test_that("siblings() from one level into a child errors gracefully", {
+  parent <- withr::local_tempdir()
+  create_file_in_child(parent, child = "a", family = ".us")
+  fs::dir_create(path(parent, "a", "1"))
+  withr::local_dir(path(parent, "a", "1"))
+
+  expect_error(siblings(family = ".us"), "parent.*shouldn't.*match.* ")
 })
