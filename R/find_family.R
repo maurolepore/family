@@ -106,7 +106,7 @@ pick_children <- function(paths, family) {
 #' @export
 #' @rdname find_family
 parent <- function(family = NULL) {
-  family <- family %||% getOption("family") %||% "^[.]family"
+  family <- family %||% getOption("family")
   children <- find_family("..", family)
   unique(path_dir(children))
 }
@@ -114,14 +114,14 @@ parent <- function(family = NULL) {
 #' @export
 #' @rdname find_family
 children <- function(family = NULL) {
-  family <- family %||% getOption("family") %||% "^[.]family"
+  family <- family %||% getOption("family")
   find_family(".", family)
 }
 
 #' @export
 #' @rdname find_family
 siblings <- function(family = NULL, self = FALSE) {
-  family <- family %||% getOption("family") %||% "^[.]family"
+  family <- family %||% getOption("family")
   children <- find_family("..", family)
   if (self) {
     return(children)
