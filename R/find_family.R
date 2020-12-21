@@ -52,29 +52,62 @@
 #' options(restore_options)
 #' setwd(restore_working_directory)
 find_family <- function(parent, family = getOption("family") %||% "^[.]family") {
-  if (!identical(length(parent), 1L)) {
-    stop("`parent` must be of length 1", call. = FALSE)
-  }
+  stop_if_too_long(parent)
 
-  paths <- list_all_files(parent)
-  pick_children(paths, family)
+  candidates <- find_candidates(parent, family)
+  children <- pick_children(candidates, family)
+  children
 }
 
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
 }
 
+stop_if_too_long <- function(parent) {
+  if (!identical(length(parent), 1L)) {
+    stop("`parent` must be of length 1", call. = FALSE)
+  }
+
+  invisible(parent)
+}
+
+find_candidates <- function(parent, family) {
+  all_files <- list_all_files(parent)
+  stop_if_nested_too_deeply(all_files, family)
+  children_files <- list_all_files(all_files)
+  children_files
+}
+
 list_all_files <- function(parent) {
-  fs::dir_ls(fs::path_abs(parent), recurse = 1, all = TRUE)
+  fs::dir_ls(fs::path_abs(parent), all = TRUE)
+}
+
+stop_if_nested_too_deeply <- function(files, family) {
+  if (any(grepl(family, files))) {
+    stop(
+      "The parent directory shouldn't have a file matching '", family, "'.\n",
+      "Is your working directory nested too deeply?\n",
+      getwd(),
+      call. = FALSE
+    )
+  }
+
+  invisible(files)
+}
+
+working_from_granchild <- function(parent, family) {
+  fs::file_exists(path(parent, family))
 }
 
 pick_children <- function(paths, family) {
-  file_path <- paths[detect_file(paths, family)]
-  sort(path_dir(file_path))
+  is_family <- grepl(family, path_file(paths))
+  child_files <- paths[is_family]
+  child_dirs <- sort(path_dir(child_files))
+  child_dirs
 }
 
-detect_file <- function(paths, file) {
-  grepl(file, path_file(paths))
+detect_file <- function(paths, family) {
+  grepl(family, path_file(paths))
 }
 
 #' @export
@@ -99,6 +132,5 @@ siblings <- function(family = getOption("family") %||% "^[.]family",
     return(children)
   }
 
-  self <- getwd()
-  grep(self, children, value = TRUE, invert = TRUE)
+  grep(getwd(), children, value = TRUE, invert = TRUE)
 }
