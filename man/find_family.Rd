@@ -20,7 +20,8 @@ siblings(family = NULL, self = FALSE)
 children directories should be nested one level under it.}
 
 \item{family}{A regular expression to match the name of the file that defines
-the family.}
+the family. You may pass it directly of with "options()", e.g.
+\code{options(family = ".us")}.}
 
 \item{self}{Include the working directory in the output? Yes: \code{TRUE}; No:
 \code{FALSE}.}
