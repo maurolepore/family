@@ -51,7 +51,7 @@ family_name <- ".us"
 file_create(path(mother, us, ".us"))
 
 dir_tree(mother, recurse = TRUE, all = TRUE)
-#> /tmp/RtmpiiaWwQ/mother
+#> /tmp/RtmpVmoTpY/mother
 #> ├── brother
 #> │   └── .us
 #> ├── neighbor
@@ -63,7 +63,7 @@ dir_tree(mother, recurse = TRUE, all = TRUE)
 
 ``` r
 find_family(parent = mother, family = family_name)
-#> [1] "/tmp/RtmpiiaWwQ/mother/brother" "/tmp/RtmpiiaWwQ/mother/sister"
+#> [1] "/tmp/RtmpVmoTpY/mother/brother" "/tmp/RtmpVmoTpY/mother/sister"
 ```
 
 A handful of other functions help you work more comfortably when your
@@ -74,17 +74,17 @@ member or unrelated neighbor.
 ``` r
 setwd(path(mother, "neighbor"))
 siblings(family_name, self = TRUE)
-#> [1] "/tmp/RtmpiiaWwQ/mother/brother" "/tmp/RtmpiiaWwQ/mother/sister"
+#> [1] "/tmp/RtmpVmoTpY/mother/brother" "/tmp/RtmpVmoTpY/mother/sister"
 
 setwd(path(mother, "sister"))
 siblings(family_name, self = TRUE)
-#> [1] "/tmp/RtmpiiaWwQ/mother/brother" "/tmp/RtmpiiaWwQ/mother/sister"
+#> [1] "/tmp/RtmpVmoTpY/mother/brother" "/tmp/RtmpVmoTpY/mother/sister"
 
 siblings(family_name)
-#> [1] "/tmp/RtmpiiaWwQ/mother/brother"
+#> [1] "/tmp/RtmpVmoTpY/mother/brother"
 
 # Save typing and reuse code with other families
 options(family = family_name)
 siblings()
-#> [1] "/tmp/RtmpiiaWwQ/mother/brother"
+#> [1] "/tmp/RtmpVmoTpY/mother/brother"
 ```
