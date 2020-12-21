@@ -32,14 +32,14 @@ library(fs)
 ```
 
 Here is a collection of related packages (“sister”, “brother”) and one
-unrelated neighbor (“them”), all under the same parent directory
+unrelated neighbour (“them”), all under the same parent directory
 (“mother”).
 
 ``` r
 mother <- path(tempdir(), "mother")
 us <- c("sister", "brother")
-neighbor <- "neighbor"
-dir_create(path(mother, c(us, neighbor)))
+neighbour <- "neighbour"
+dir_create(path(mother, c(us, neighbour)))
 ```
 
 To define the family we add an empty file under the root of each
@@ -51,10 +51,10 @@ family_name <- ".us"
 file_create(path(mother, us, ".us"))
 
 dir_tree(mother, recurse = TRUE, all = TRUE)
-#> /tmp/RtmpVmoTpY/mother
+#> /tmp/RtmpD89E3v/mother
 #> ├── brother
 #> │   └── .us
-#> ├── neighbor
+#> ├── neighbour
 #> └── sister
 #>     └── .us
 ```
@@ -63,28 +63,28 @@ dir_tree(mother, recurse = TRUE, all = TRUE)
 
 ``` r
 find_family(parent = mother, family = family_name)
-#> [1] "/tmp/RtmpVmoTpY/mother/brother" "/tmp/RtmpVmoTpY/mother/sister"
+#> [1] "/tmp/RtmpD89E3v/mother/brother" "/tmp/RtmpD89E3v/mother/sister"
 ```
 
 A handful of other functions help you work more comfortably when your
 working directory is set to either the parent directory or one level
 under it. For example, `siblngs()` finds the family from any family
-member or unrelated neighbor.
+member or unrelated neighbour.
 
 ``` r
-setwd(path(mother, "neighbor"))
+setwd(path(mother, "neighbour"))
 siblings(family_name, self = TRUE)
-#> [1] "/tmp/RtmpVmoTpY/mother/brother" "/tmp/RtmpVmoTpY/mother/sister"
+#> [1] "/tmp/RtmpD89E3v/mother/brother" "/tmp/RtmpD89E3v/mother/sister"
 
 setwd(path(mother, "sister"))
 siblings(family_name, self = TRUE)
-#> [1] "/tmp/RtmpVmoTpY/mother/brother" "/tmp/RtmpVmoTpY/mother/sister"
+#> [1] "/tmp/RtmpD89E3v/mother/brother" "/tmp/RtmpD89E3v/mother/sister"
 
 siblings(family_name)
-#> [1] "/tmp/RtmpVmoTpY/mother/brother"
+#> [1] "/tmp/RtmpD89E3v/mother/brother"
 
 # Save typing and reuse code with other families
 options(family = family_name)
 siblings()
-#> [1] "/tmp/RtmpVmoTpY/mother/brother"
+#> [1] "/tmp/RtmpD89E3v/mother/brother"
 ```
