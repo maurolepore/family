@@ -87,26 +87,12 @@ stop_if_too_long <- function(parent) {
 
 find_candidates <- function(parent, family) {
   dirs <- list_all_dirs(parent, type = "directory")
-  stop_if_nested_too_deeply(dirs, family)
   children_files <- list_all_dirs(dirs)
   children_files
 }
 
 list_all_dirs <- function(parent, type = "any") {
   fs::dir_ls(fs::path_abs(parent), all = TRUE, type = type)
-}
-
-stop_if_nested_too_deeply <- function(files, family) {
-  if (any(grepl(family, files))) {
-    stop(
-      "The parent directory shouldn't have a file matching '", family, "'.\n",
-      "Is your working directory nested too deeply?\n",
-      getwd(),
-      call. = FALSE
-    )
-  }
-
-  invisible(files)
 }
 
 working_from_granchild <- function(parent, family) {
