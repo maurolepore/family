@@ -7,13 +7,13 @@
 \alias{siblings}
 \title{Find directories of a family}
 \usage{
-find_family(parent, family = getOption("family") \%||\% "^[.]family")
+find_family(parent, family = NULL)
 
-parent(family = getOption("family") \%||\% "^[.]family")
+parent(family = NULL)
 
-children(family = getOption("family") \%||\% "^[.]family")
+children(family = NULL)
 
-siblings(family = getOption("family") \%||\% "^[.]family", self = FALSE)
+siblings(family = NULL, self = FALSE)
 }
 \arguments{
 \item{parent}{A string giving a single path to the parent directory. The
