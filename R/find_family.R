@@ -86,14 +86,14 @@ stop_if_too_long <- function(parent) {
 }
 
 find_candidates <- function(parent, family) {
-  all_files <- list_all_files(parent)
-  stop_if_nested_too_deeply(all_files, family)
-  children_files <- list_all_files(all_files)
+  dirs <- list_all_dirs(parent, type = "directory")
+  stop_if_nested_too_deeply(dirs, family)
+  children_files <- list_all_dirs(dirs)
   children_files
 }
 
-list_all_files <- function(parent) {
-  fs::dir_ls(fs::path_abs(parent), all = TRUE)
+list_all_dirs <- function(parent, type = "any") {
+  fs::dir_ls(fs::path_abs(parent), all = TRUE, type = type)
 }
 
 stop_if_nested_too_deeply <- function(files, family) {

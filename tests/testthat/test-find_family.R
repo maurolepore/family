@@ -1,3 +1,7 @@
+test_that("with missmatching `family` returns character(0)", {
+  expect_equal(find_family(parent = ".", "bad"), character(0))
+})
+
 test_that("with too-long `parent` errors gracefully", {
   expect_error(find_family(parent = "."), "must.*provide")
 })
@@ -133,12 +137,3 @@ test_that("siblings() with family defined in options(), finds parent", {
   expect_equal(path_file(siblings()), "b")
 })
 
-test_that("siblings() from one level into a child errors gracefully", {
-  parent <- withr::local_tempdir()
-  family <- ".us"
-  create_file_in_child(parent, child = "a", family = family)
-  fs::dir_create(path(parent, "a", "1"))
-  withr::local_dir(path(parent, "a", "1"))
-
-  expect_error(siblings(family = family), "parent.*shouldn't.*match.* ")
-})
