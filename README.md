@@ -48,10 +48,11 @@ is hidden.
 
 ``` r
 family_name <- ".us"
-file_create(path(mother, us, ".us"))
+family_regexp <- "^[.]us$"
+file_create(path(mother, us, family_name))
 
 dir_tree(mother, recurse = TRUE, all = TRUE)
-#> /tmp/RtmpD89E3v/mother
+#> /tmp/Rtmpg1fiYf/mother
 #> ├── brother
 #> │   └── .us
 #> ├── neighbour
@@ -62,8 +63,8 @@ dir_tree(mother, recurse = TRUE, all = TRUE)
 `find_family()` finds the family from anywhere.
 
 ``` r
-find_family(parent = mother, family = family_name)
-#> [1] "/tmp/RtmpD89E3v/mother/brother" "/tmp/RtmpD89E3v/mother/sister"
+find_family(parent = mother, regexp = family_regexp)
+#> [1] "/tmp/Rtmpg1fiYf/mother/brother" "/tmp/Rtmpg1fiYf/mother/sister"
 ```
 
 A handful of other functions help you work more comfortably when your
@@ -73,18 +74,18 @@ member or unrelated neighbour.
 
 ``` r
 setwd(path(mother, "neighbour"))
-siblings(family_name, self = TRUE)
-#> [1] "/tmp/RtmpD89E3v/mother/brother" "/tmp/RtmpD89E3v/mother/sister"
+siblings(family_regexp, self = TRUE)
+#> [1] "/tmp/Rtmpg1fiYf/mother/brother" "/tmp/Rtmpg1fiYf/mother/sister"
 
 setwd(path(mother, "sister"))
-siblings(family_name, self = TRUE)
-#> [1] "/tmp/RtmpD89E3v/mother/brother" "/tmp/RtmpD89E3v/mother/sister"
+siblings(family_regexp, self = TRUE)
+#> [1] "/tmp/Rtmpg1fiYf/mother/brother" "/tmp/Rtmpg1fiYf/mother/sister"
 
-siblings(family_name)
-#> [1] "/tmp/RtmpD89E3v/mother/brother"
+siblings(family_regexp)
+#> [1] "/tmp/Rtmpg1fiYf/mother/brother"
 
 # Save typing and reuse code with other families
-options(family = family_name)
+options(family.regexp = family_regexp)
 siblings()
-#> [1] "/tmp/RtmpD89E3v/mother/brother"
+#> [1] "/tmp/Rtmpg1fiYf/mother/brother"
 ```
