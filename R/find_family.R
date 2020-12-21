@@ -61,6 +61,33 @@ find_family <- function(parent, family = NULL) {
   children
 }
 
+#' @export
+#' @rdname find_family
+parent <- function(family = NULL) {
+  family <- family %||% getOption("family")
+  children <- find_family("..", family)
+  unique(path_dir(children))
+}
+
+#' @export
+#' @rdname find_family
+children <- function(family = NULL) {
+  family <- family %||% getOption("family")
+  find_family(".", family)
+}
+
+#' @export
+#' @rdname find_family
+siblings <- function(family = NULL, self = FALSE) {
+  family <- family %||% getOption("family")
+  children <- find_family("..", family)
+  if (self) {
+    return(children)
+  }
+
+  grep(getwd(), children, value = TRUE, invert = TRUE)
+}
+
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
 }
@@ -101,31 +128,4 @@ pick_children <- function(paths, family) {
   child_files <- paths[is_family]
   child_dirs <- sort(path_dir(child_files))
   child_dirs
-}
-
-#' @export
-#' @rdname find_family
-parent <- function(family = NULL) {
-  family <- family %||% getOption("family")
-  children <- find_family("..", family)
-  unique(path_dir(children))
-}
-
-#' @export
-#' @rdname find_family
-children <- function(family = NULL) {
-  family <- family %||% getOption("family")
-  find_family(".", family)
-}
-
-#' @export
-#' @rdname find_family
-siblings <- function(family = NULL, self = FALSE) {
-  family <- family %||% getOption("family")
-  children <- find_family("..", family)
-  if (self) {
-    return(children)
-  }
-
-  grep(getwd(), children, value = TRUE, invert = TRUE)
 }
