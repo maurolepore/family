@@ -1,9 +1,9 @@
 test_that("with too-long `parent` errors gracefully", {
-  expect_error(find_family(c("a", "b")), "must.*length 1")
+  expect_error(find_family(parent = "."), "can't.*NULL")
 })
 
-test_that("with NULL `family` errors gracefully", {
-  expect_error(find_family(".", family = NULL), "can't.*NULL")
+test_that("with too-long `parent` errors gracefully", {
+  expect_error(find_family(c("a", "b")), "must.*length 1")
 })
 
 test_that("with parent path finds siblings", {
@@ -30,20 +30,21 @@ test_that("with family defined via options(), finds siblings", {
 
 test_that("with relative path from the parent, finds siblings", {
   parent <- withr::local_tempdir()
-  create_file_in_child(parent, child = "a", family = ".family")
+  create_file_in_child(parent, child = "a", family = ".us")
   # From the parent
   withr::local_dir(parent)
 
-  expect_equal(path_file(find_family(".")), "a")
+  expect_equal(path_file(find_family(".", family = ".us")), "a")
 })
 
 test_that("with relative path from a child, finds siblings", {
   parent <- withr::local_tempdir()
-  create_file_in_child(parent, child = "a", family = ".family")
+  name <- ".us"
+  create_file_in_child(parent, child = "a", family = name)
   # From a child
   withr::local_dir(path(parent, "a"))
 
-  out <- find_family("..")
+  out <- find_family("..", family = name)
   expected <- as.character(path(parent, "a"))
 
   out_parent <- fs::path_file(path_dir(out))

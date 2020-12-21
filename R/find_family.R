@@ -51,8 +51,9 @@
 #' # Cleanup
 #' options(restore_options)
 #' setwd(restore_working_directory)
-find_family <- function(parent, family = getOption("family") %||% "^[.]family") {
+find_family <- function(parent, family = NULL) {
   stop_if_too_long(parent)
+  family <- family %||% getOption("family")
   if (is.null(family)) stop("`family` can't be NULL.")
 
   candidates <- find_candidates(parent, family)
@@ -113,21 +114,23 @@ detect_file <- function(paths, family) {
 
 #' @export
 #' @rdname find_family
-parent <- function(family = getOption("family") %||% "^[.]family") {
+parent <- function(family = NULL) {
+  family <- family %||% getOption("family") %||% "^[.]family"
   children <- find_family("..", family)
   unique(path_dir(children))
 }
 
 #' @export
 #' @rdname find_family
-children <- function(family = getOption("family") %||% "^[.]family") {
+children <- function(family = NULL) {
+  family <- family %||% getOption("family") %||% "^[.]family"
   find_family(".", family)
 }
 
 #' @export
 #' @rdname find_family
-siblings <- function(family = getOption("family") %||% "^[.]family",
-                     self = FALSE) {
+siblings <- function(family = NULL, self = FALSE) {
+  family <- family %||% getOption("family") %||% "^[.]family"
   children <- find_family("..", family)
   if (self) {
     return(children)
