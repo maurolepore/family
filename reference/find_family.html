@@ -170,41 +170,41 @@ the family. You may pass it directly of with "options()", e.g.
 <span class='fu'><a href='http://fs.r-lib.org/reference/create.html'>file_create</a></span><span class='op'>(</span><span class='fu'><a href='http://fs.r-lib.org/reference/path.html'>path</a></span><span class='op'>(</span><span class='va'>mother</span>, <span class='va'>siblings</span>, <span class='va'>family_name</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'><a href='http://fs.r-lib.org/reference/dir_tree.html'>dir_tree</a></span><span class='op'>(</span><span class='va'>mother</span>, recurse <span class='op'>=</span> <span class='cn'>TRUE</span>, all <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #0000BB;font-weight: bold;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother</span><span>
-#&gt; ├── </span><span style='color: #0000BB;font-weight: bold;'>brother</span><span>
+</div><div class='output co'>#&gt; <span style='color: #0000BB; font-weight: bold;'>/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother</span>
+#&gt; ├── <span style='color: #0000BB; font-weight: bold;'>brother</span>
 #&gt; │   └── .us
-#&gt; ├── </span><span style='color: #0000BB;font-weight: bold;'>neighbour</span><span>
-#&gt; └── </span><span style='color: #0000BB;font-weight: bold;'>sister</span><span>
+#&gt; ├── <span style='color: #0000BB; font-weight: bold;'>neighbour</span>
+#&gt; └── <span style='color: #0000BB; font-weight: bold;'>sister</span>
 #&gt;     └── .us</div><div class='input'>
 <span class='co'># Find the family from anywhere</span>
 <span class='fu'>find_family</span><span class='op'>(</span>parent <span class='op'>=</span> <span class='va'>mother</span>, regexp <span class='op'>=</span> <span class='va'>family_regexp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother/brother"
-#&gt; [2] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother/sister" </div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother/brother"
+#&gt; [2] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother/sister" </div><div class='input'>
 <span class='co'># Find the family from the parent, the siblings or their neighbours</span>
 <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='fu'><a href='http://fs.r-lib.org/reference/path.html'>path</a></span><span class='op'>(</span><span class='va'>mother</span>, <span class='st'>"neighbour"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>siblings</span><span class='op'>(</span><span class='va'>family_regexp</span>, self <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother/brother"
-#&gt; [2] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother/sister" </div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother/brother"
+#&gt; [2] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother/sister" </div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='fu'><a href='http://fs.r-lib.org/reference/path.html'>path</a></span><span class='op'>(</span><span class='va'>mother</span>, <span class='st'>"sister"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>siblings</span><span class='op'>(</span><span class='va'>family_regexp</span>, self <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother/brother"
-#&gt; [2] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother/sister" </div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother/brother"
+#&gt; [2] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother/sister" </div><div class='input'>
 <span class='fu'>siblings</span><span class='op'>(</span><span class='va'>family_regexp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother/brother"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother/brother"</div><div class='input'>
 <span class='co'># Save typing and reuse code with other families</span>
 <span class='va'>restore_options</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>family.regexp <span class='op'>=</span> <span class='va'>family_regexp</span><span class='op'>)</span>
 <span class='fu'>siblings</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother/brother"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother/brother"</div><div class='input'>
 <span class='fu'>parent</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother"</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='fu'>parent</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>children</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother/brother"
-#&gt; [2] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp5AZ8yv/mother/sister" </div><div class='input'>
+</div><div class='output co'>#&gt; [1] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother/brother"
+#&gt; [2] "/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpbzPNZA/mother/sister" </div><div class='input'>
 <span class='co'># Cleanup</span>
 <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span><span class='va'>restore_options</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>setwd</a></span><span class='op'>(</span><span class='va'>restore_working_directory</span><span class='op'>)</span>
-</div></span></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
